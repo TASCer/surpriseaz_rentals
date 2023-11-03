@@ -17,7 +17,7 @@ DB_PW = f'{my_secrets.debian_dbpass}'
 COMMUNITY_RENTAL_TYPES = 'community_rental_owner_types'
 TOP_RENTAL_TYPES = 'top_rental_ownership_type'
 TOP_REGISTERED_RENTAL_OWNERS = 'top_reg_rental_ownership'
-TOP_CLASSED_RENTAL_OWNERS = 'top_clsassed_rental_ownership'
+TOP_CLASSED_RENTAL_OWNERS = 'top_classed_rental_ownership'
 REGISTERED_RENTALS = 'registered_rentals'
 CLASSED_RENTALS = 'classed_rentals'
 
@@ -188,4 +188,7 @@ def check():
         logger.critical(str(e))
         return False
 
+    logger.info(f"""{TOP_CLASSED_RENTAL_OWNERS} {TOP_REGISTERED_RENTAL_OWNERS} {TOP_RENTAL_TYPES} 
+                    {CLASSED_RENTALS}-{REGISTERED_RENTALS}-{COMMUNITY_RENTAL_TYPES} created""")
+    
     return True
