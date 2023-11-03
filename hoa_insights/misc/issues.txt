@@ -1,0 +1,9 @@
+There was an "APL_flag" removed 10/12/22!?! str 0,1,? Was removed after asking ?'s? Noticed reg, rentals flipping
+APL_flag came back in early May, coincided with registered rentals dropping off pre-election...
+Rental Registrations dropping again 5/11-12/2023
+Redacted owners change 6/3/23? Strange data. Mailing Address and Owner Name are NA. Sale Date just month year (112017). Causes issues for owner_hist updating
+
+
+email has file path in filename (insight_reports)
+PDFs need better formatting
+TLS email local and remote

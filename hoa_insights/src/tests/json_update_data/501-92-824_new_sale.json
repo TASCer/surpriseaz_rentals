@@ -1,0 +1,297 @@
+{
+	"MCR": "55140",
+	"AssociatedParcels": [],
+	"MoreAssociatedParcelsExist": false,
+	"PropertyAddress": "15910 W MAUI LN SURPRISE 85379",
+	"PropertyDescription": "LEGACY PARC PARCEL B MCR 551-40",
+	"LotSize": "5936",
+	"IsResidential": true,
+	"MapidExists": false,
+	"SectionTownshipRange": "7 3N 1W",
+	"AssessorMarket": "23",
+	"AreaNeighborhood": "006",
+	"SubdivisionName": "LEGACY PARC PARCEL B",
+	"Lot": "243",
+	"HighSchoolDistrict": "DYSART UNIFED #89",
+	"ElementarySchoolDistrict": "DYSART UNIFIED SCHOOL DISTRICT",
+	"LocalJusidiction": "SURPRISE",
+	"PropertyType": "Residential",
+	"ParcelStatus": "A",
+	"APL_flag": "1",
+	"Owner": {
+		"OwnerID": "C706F29C-977D-40A0-BEA4-84E08B7C46FF",
+		"Ownership": "STALZER CHRISTOPHER T",
+		"InCareOf": null,
+		"ContoOwnership": "",
+		"MailingAddress1": "15910 W MAUI LN",
+		"MailingAddress2": null,
+		"MailingCity": "SURPRISE",
+		"MailingState": "AZ",
+		"MailingZip": "85379",
+		"MailingCountry": "USA",
+		"MostCurrentDeed": "20031303723",
+		"DeedDate": "09/17/2003",
+		"DeedType": "00",
+		"SalePrice": 666666,
+		"SaleDate": "02/01/2023",
+		"Redacted": false,
+		"FullMailingAddress": "15910 W MAUI LN, SURPRISE, AZ 85379",
+		"DeedTypeID": null
+	},
+	"Geo": {
+		"lat": null,
+		"long": null,
+		"address": "15910 W MAUI LN SURPRISE 85379"
+	},
+	"Zoning": "PAD",
+	"IsRental": false,
+	"McrTransitionUrl": "https://recorder.maricopa.gov/recdocdata/internetmaps/imapsdetail.aspx?Book=551&Page=40&imgType=TIF&maptype=PLAT",
+	"TreasurersTransitionUrl": "https://treasurer.maricopa.gov/parcel/default.aspx?Parcel=50192824",
+	"DeedTransitionUrl": "https://recorder.maricopa.gov/recdocdata/GetRecDataDetailAssr.aspx?rec=20031303723&suf=&sar=Unofficial&docket=&docketpg=&docketdate=",
+	"IsCancelled": false,
+	"NumberOfParcelsInSubdivision": 169,
+	"IsCommercial": false,
+	"Improvements": [],
+	"Valuations": [
+		{
+			"TaxYear": "2024",
+			"FullCashValue": "339200",
+			"LimitedPropertyValue": "133489      ",
+			"LegalClassificationCode": "3.1 ",
+			"LegalClassification": "PRIMARY RESIDENCE                                                                                                               ",
+			"AssessmentRatioPercentage": "0.1000",
+			"AssessedFCV": "na",
+			"AssessedLPV": "13348       ",
+			"ValuationSource": "Notice",
+			"PEPropUseDesc": "Single Family Residence",
+			"PropertyUseCode": "0141",
+			"TaxAreaCode": "891503",
+			"NoticeOfChangeIndc": "N"
+		},
+		{
+			"TaxYear": "2023",
+			"FullCashValue": "274800",
+			"LimitedPropertyValue": "127133      ",
+			"LegalClassificationCode": "3.1 ",
+			"LegalClassification": "PRIMARY RESIDENCE                                                                                                               ",
+			"AssessmentRatioPercentage": "0.1000",
+			"AssessedFCV": "na",
+			"AssessedLPV": "12713       ",
+			"ValuationSource": "Notice",
+			"PEPropUseDesc": "Single Family Residence",
+			"PropertyUseCode": "0141",
+			"TaxAreaCode": "891503",
+			"NoticeOfChangeIndc": "N"
+		},
+		{
+			"TaxYear": "2022",
+			"FullCashValue": "208800",
+			"LimitedPropertyValue": "121079      ",
+			"LegalClassificationCode": "3.1 ",
+			"LegalClassification": "PRIMARY RESIDENCE                                                                                                               ",
+			"AssessmentRatioPercentage": "0.1000",
+			"AssessedFCV": "na",
+			"AssessedLPV": "12108       ",
+			"ValuationSource": "Notice",
+			"PEPropUseDesc": "Single Family Residence",
+			"PropertyUseCode": "0141",
+			"TaxAreaCode": "891503",
+			"NoticeOfChangeIndc": "N"
+		},
+		{
+			"TaxYear": "2021",
+			"FullCashValue": "189800",
+			"LimitedPropertyValue": "115313      ",
+			"LegalClassificationCode": "3.1 ",
+			"LegalClassification": "PRIMARY RESIDENCE                                                                                                               ",
+			"AssessmentRatioPercentage": "0.1000",
+			"AssessedFCV": "na",
+			"AssessedLPV": "11531       ",
+			"ValuationSource": "Notice",
+			"PEPropUseDesc": "Single Family Residence",
+			"PropertyUseCode": "0141",
+			"TaxAreaCode": "891503",
+			"NoticeOfChangeIndc": "N"
+		}
+	],
+	"TaxAreaCode": "891503",
+	"PropertyUseCode": "0141",
+	"PEPropUseDesc": "Single Family Residence",
+	"NumberOfParcelsInMCR": 0,
+	"NumberOfParcelsInSTR": 0,
+	"ResidentialPropertyData": {
+		"ConstructionYear": "2002",
+		"OriginalConstructionYear": "2002",
+		"LotSize": "5936",
+		"LivableSpace": "1624",
+		"Detached_Livable_sqft": null,
+		"AssessorMarket": "23",
+		"AreaNeighborhood": "006",
+		"Pool": false,
+		"PEImprovementQualityGrade": "Comparable",
+		"ImprovementQualityGrade": "CLASS R4",
+		"NumberOfCoveredPatios": "1",
+		"NumberOfUncoveredPatios": 0,
+		"NumberOfPatios": "1",
+		"PatioType": "Covered",
+		"ExteriorWalls": "Fw - Frame Wood",
+		"RoofType": "Ct - Concrete Tile",
+		"BathFixtures": "7",
+		"Cooling": "RF - REFRIGERATION",
+		"Heating": "Yes",
+		"NumberOfGarages": "2",
+		"NumberOfCarports": 0,
+		"ParkingDetails": {
+			"ParkingType": "Garage",
+			"ParkingCount": "1"
+		},
+		"LocationalFactors": "",
+		"OtherStructures": "",
+		"ParkingType": "Garage",
+		"CoveredParking": true,
+		"LocationalCharacteristics": "",
+		"PhysicalCondition": null
+	},
+	"SimilarParcels": [
+		{
+			"Parcel": "501-92-737",
+			"LandSize": "7018",
+			"SalesPriceDate": "$435000 / 6 -2023",
+			"FullCashValue": "346000",
+			"LivableSqFootage": "1606",
+			"ConstructionYear": "2002",
+			"PoolArea": [],
+			"SitusAddress": "15961 W CARIBBEAN LN",
+			"ForeClosed": []
+		},
+		{
+			"Parcel": "501-92-733",
+			"LandSize": "6136",
+			"SalesPriceDate": "$459000 / 6 -2022",
+			"FullCashValue": "339600",
+			"LivableSqFootage": "1581",
+			"ConstructionYear": "2002",
+			"PoolArea": [],
+			"SitusAddress": "15929 W CARIBBEAN LN",
+			"ForeClosed": []
+		},
+		{
+			"Parcel": "501-92-845",
+			"LandSize": "7614",
+			"SalesPriceDate": "$532000 / 4 -2022",
+			"FullCashValue": "376200",
+			"LivableSqFootage": "1624",
+			"ConstructionYear": "2002",
+			"PoolArea": "400",
+			"SitusAddress": "15951 W MAUI LN",
+			"ForeClosed": []
+		},
+		{
+			"Parcel": "501-92-806",
+			"LandSize": "6287",
+			"SalesPriceDate": "$372500 / 12-2022",
+			"FullCashValue": "341100",
+			"LivableSqFootage": "1624",
+			"ConstructionYear": "2002",
+			"PoolArea": [],
+			"SitusAddress": "16103 W PORT AU PRINCE LN",
+			"ForeClosed": []
+		},
+		{
+			"Parcel": "501-92-806",
+			"LandSize": "6287",
+			"SalesPriceDate": "$372500 / 12-2022",
+			"FullCashValue": "341100",
+			"LivableSqFootage": "1624",
+			"ConstructionYear": "2002",
+			"PoolArea": [],
+			"SitusAddress": "16103 W PORT AU PRINCE LN",
+			"ForeClosed": []
+		}
+	],
+	"Sketches": {
+		"TotalPages": 0,
+		"Pages": []
+	},
+	"MapIDs": {
+		"Parcel Maps": [
+			{
+				"FileName": "803070201",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070201/"
+			}
+		],
+		"Subdivision Maps": [
+			{
+				"FileName": "803070201",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070201/"
+			},
+			{
+				"FileName": "803070202",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070202/"
+			}
+		],
+		"MCR Maps": [
+			{
+				"FileName": "803070201",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070201/"
+			},
+			{
+				"FileName": "803070202",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070202/"
+			}
+		],
+		"S/T/R Maps": [],
+		"Book/Map Maps": [
+			{
+				"FileName": "803070101",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070101/"
+			},
+			{
+				"FileName": "803070102",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070102/"
+			},
+			{
+				"FileName": "803070201",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070201/"
+			},
+			{
+				"FileName": "803070202",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070202/"
+			},
+			{
+				"FileName": "803070204",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070204/"
+			},
+			{
+				"FileName": "803070401",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070401/"
+			},
+			{
+				"FileName": "803070402",
+				"UpdateDate": "01-DEC-08",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803070402/"
+			},
+			{
+				"FileName": "803240204",
+				"UpdateDate": "19-APR-21",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803240204/"
+			},
+			{
+				"FileName": "803240301",
+				"UpdateDate": "19-APR-21",
+				"Url": "https://mcassessor.maricopa.gov/getmapid/803240301/"
+			}
+		]
+	}
+}
