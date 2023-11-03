@@ -7,4 +7,8 @@ hoa_insights/src/tests/__pycache__/*
 /hoa_insights/output/csv/financial/*.csv
 /hoa_insights/output/csv/latest_changes/*.csv
 /hoa_insights/output/web_reports/financial/*.html
-/hoa_insights/output/web_reports/latest_changes/*.html
+/hoa_insights/output/web_reports/latest_changes/*.
+/hoa_insights/*.log
+hoa_insights/output/pdf/*.pdf
+hoa_insights/output/pdf/*.pdf
+hoa_insights/output/web_reports/parcel_changes/*.html
