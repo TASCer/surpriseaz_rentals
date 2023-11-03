@@ -47,7 +47,7 @@ def get_parcel_apns() -> object:
             APNs = results.all()
             APNs = [x[0] for x in APNs]
         
-        return APNs, engine
+        return APNs
 
     except exc.DBAPIError as e:
         logger.error(str(e))
@@ -58,7 +58,7 @@ def process_api():
         Parcel sales changes sent to historical_sales table.
         Parcel ownership changes sent to historical_owners table.
     """
-    APNS, engine = get_parcel_apns()
+    APNS = get_parcel_apns()
     logger.info("Accessing Assessor API to get latest insights")
     consumed_parcel_data: object = asyncio.run(async_main(APNS))
     logger.info("All latest parcel data consumed from API")
