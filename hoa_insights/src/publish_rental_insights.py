@@ -72,85 +72,36 @@ def web_publish():
 
 
     # PUBLISH to BLUEHOST 
-    # try:
-    #     logger: Logger = logging.getLogger(__name__)
-    #     engine = create_engine(f'mysql+pymysql://{BH_DB_USER}:{BH_DB_PW}@{BH_DB_HOSTNAME}/{BH_DB_NAME}')
-    #     with engine.connect() as conn, conn.begin():
-    #         try:
-    #             registered_rentals.to_sql(name='all_registered_rentals',
-    #                         con=conn,
-    #                         if_exists='replace',
-    #                         index=False,
-    #                         )
-    #             logger.info(f"Table 'all_registered_rentals' has been updated REMOTELY")
+    try:
+        logger: Logger = logging.getLogger(__name__)
+        engine = create_engine(f'mysql+pymysql://{BH_DB_USER}:{BH_DB_PW}@{BH_DB_HOSTNAME}/{BH_DB_NAME}')
+        with engine.connect() as conn, conn.begin():
+            try:
+                registered_rentals.to_sql(name='all_registered_rentals',
+                            con=conn,
+                            if_exists='replace',
+                            index=False,
+                            )
+                logger.info(f"Table 'all_registered_rentals' has been updated REMOTELY")
     
     
-    #             classed_rentals.to_sql(name='all_classed_rentals',
-    #                         con=conn,
-    #                         if_exists='replace',
-    #                         index=False,
-    #                         )
-    #             logger.info(f"Table: 'all_classed_rentals' has been updated REMOTELY")
+                classed_rentals.to_sql(name='all_classed_rentals',
+                            con=conn,
+                            if_exists='replace',
+                            index=False,
+                            )
+                logger.info(f"Table: 'all_classed_rentals' has been updated REMOTELY")
     
-    #             pd.Series(now).to_sql(name='last_updated',
-    #                         con = conn,
-    #                         if_exists='replace',
-    #                         index=False,
-    #                         )
-    #             logger.info(f"Table: 'last_updated' has been updated REMOTELY")
-
-    #             # community_total_parcels_df.to_sql(name='communities',
-    #             #             con=conn,
-    #             #             if_exists='replace',
-    #             #             index=False,
-    #             #             )
-                
-    #             logger.info(f"Database communities has been updated REMOTELY")
+                pd.Series(now).to_sql(name='last_updated',
+                            con = conn,
+                            if_exists='replace',
+                            index=False,
+                            )
+                logger.info(f"Table: 'last_updated' has been updated REMOTELY")
+ 
+            except exc.SQLAlchemyError as e:
+                logger.critical(repr(e))
     
-    #         except exc.SQLAlchemyError as e:
-    #             logger.critical(repr(e))
-    
-    # except exc.OperationalError as e:
-    #     logger.critical(repr(e))
-    
-
-    # PUBLISH LOCALLY?? TRY Creaating VIEW for master, send to BH
-    # try:
-    #     engine = create_engine(f'mysql+pymysql://{my_secrets.rentals_dbuser}:{my_secrets.rentals_dbpass}@{my_secrets.rentals_dbhost}/{my_secrets.rentals_dbname}')
-    #     with engine.connect() as conn, conn.begin():
-    #         try:
-    #             registered_rentals.to_sql(name='all_registered_rentals',
-    #                         con=conn,
-    #                         if_exists='replace',
-    #                         index=False,
-    #                                       )
-    #             logger.info(f"Table all_registered_rentals has been updated LOCALLY")
-
-    #         except (exc.ProgrammingError, AttributeError) as e:
-    #             logger.error(e)
-
-    #         try:
-    #             classed_rentals.to_sql(name='all_classed_rentals',
-    #                         con=conn,
-    #                         if_exists='replace',
-    #                         index=False
-    #                                    )
-    #             logger.info(f"Table 'all_classed_rentals' has been updated LOCALLY")        
-
-    #         except (exc.ProgrammingError, AttributeError) as e:
-    #             logger.error(e)
-
-            # ATTEMPTING TO MERGE INTO 1 table. ISSUES
-            # try:
-            #     all_community_rentals.to_sql(name='all_community_rentals',
-            #                 con=conn,
-            #                 if_exists='replace',
-            #                 index=False,
-            #                 )
-            #     logger.info(f"Table all_community_rentals has been updated LOCALLY")
-            #
-            # except exc.ProgrammingError as e:
-            #     logger.error(e)
-
-    # except exc.SQLAlchemyError as e:
-    #     logger.critical(repr(e))
+    except exc.OperationalError as e:
+        logger.critical(repr(e))
+        
