@@ -1,5 +1,6 @@
 import datetime as dt
 import db_checks
+import db_checks_remote
 import get_parcel_changes
 import get_parcel_data
 import insight_reports
@@ -17,10 +18,6 @@ from logging import Logger, Formatter
 from pandas import DataFrame
 from tests import test_get_parcel_data
 from tests import test_update_parcel_data
-
-# ALL TESTS modules cannot be run with WINDOWS task scheduler. Pycharm shows tests as a package
-# from tests import test_get_parcel_data
-# from tests import test_update_parcel_data
 
 now: date = dt.date.today()
 todays_date: str = now.strftime('%D').replace('/', '-')
@@ -91,7 +88,11 @@ if __name__ == '__main__':
         latest_parcel_data = start_insights()
         update_parcel_data.update(latest_parcel_data)
         if not TESTING:
-            publish_rental_insights.web_publish()
+            have_database_remote: bool = db_checks_remote.schema()
+            have_tables_remote: bool = db_checks_remote.tables()
+            if have_database_remote and have_tables_remote:
+                publish_rental_insights.web_publish()
+    
         parcel_changes = get_new_insights()
 
         if not parcel_changes.empty:
