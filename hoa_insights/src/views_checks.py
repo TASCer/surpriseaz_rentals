@@ -56,7 +56,9 @@ def check():
                     JOIN `parcels` ON ((`rentals`.`APN` = `parcels`.`APN`)))
                 GROUP BY `parcels`.`COMMUNITY` , `rentals`.`OWNER_TYPE`
             """))
-
+        
+        logger.info(f"{COMMUNITY_RENTAL_TYPES} created")
+    
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))  
         return False
@@ -79,6 +81,8 @@ def check():
                 ORDER BY `count` DESC
             """))
 
+        logger.info(f"{TOP_RENTAL_TYPES} created""")
+    
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
         return False
@@ -110,6 +114,8 @@ def check():
                     JOIN `parcels` ON ((`rentals`.`APN` = `parcels`.`APN`)))
             """))
 
+        logger.info(f"{REGISTERED_RENTALS} created""")
+    
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
         return False
@@ -139,6 +145,8 @@ def check():
                 ((`owners`.`LEGAL_CODE` = '4.2')
                     AND (`owners`.`RENTAL` = 0))                
                     """))
+        logger.info(f"{CLASSED_RENTALS} created""")
+    
 
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
@@ -162,6 +170,8 @@ def check():
             ORDER BY `c` DESC;      
                                 """))
 
+        logger.info(f"{TOP_REGISTERED_RENTAL_OWNERS} created""")
+    
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
         return False
@@ -184,11 +194,13 @@ def check():
                ORDER BY `c` DESC;      
                                    """))
 
+        logger.info(f"{TOP_CLASSED_RENTAL_OWNERS} created""")
+    
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
         return False
 
-    logger.info(f"""{TOP_CLASSED_RENTAL_OWNERS} {TOP_REGISTERED_RENTAL_OWNERS} {TOP_RENTAL_TYPES} 
-                    {CLASSED_RENTALS}-{REGISTERED_RENTALS}-{COMMUNITY_RENTAL_TYPES} created""")
+    # logger.info(f"""{TOP_CLASSED_RENTAL_OWNERS} {TOP_REGISTERED_RENTAL_OWNERS} {TOP_RENTAL_TYPES} 
+    #                 {CLASSED_RENTALS}-{REGISTERED_RENTALS}-{COMMUNITY_RENTAL_TYPES} created""")
     
     return True
