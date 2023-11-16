@@ -7,3 +7,9 @@ Redacted owners change 6/3/23? Strange data. Mailing Address and Owner Name are 
 email has file path in filename (insight_reports)
 PDFs need better formatting
 TLS email local and remote
+
+possible api for ADOT
+https://www.az511.com/developers/doc
+
+legal
+https://legiscan.com/legiscan
