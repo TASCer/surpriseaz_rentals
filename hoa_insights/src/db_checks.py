@@ -1,3 +1,4 @@
+# TODO need to add schema check and communities table check for remote site
 import datetime as dt
 import logging
 import my_secrets
@@ -191,51 +192,5 @@ def tables():
 		logger.warning(f"Table: {OWNERS_HISTORY} did not exist and has been created")
 
 	meta.create_all(engine)
-
-	# LOCAL 'COMMUNITIES' tables
-	# try:
-	# 	engine = create_engine(f'mysql+pymysql://{my_secrets.rentals_dbuser}:{my_secrets.rentals_dbpass}@{my_secrets.rentals_dbhost}/{my_secrets.rentals_dbname}')
-	# 	if not database_exists(engine.url):
-	# 		create_database(engine.url)
-
-	# 	communities_tbl_insp = sa.inspect(engine)
-	# 	communities_tbl = communities_tbl_insp.has_table(COMMUNITY_TOTALS, schema="tascsnet_insights")
-
-	# 	if not communities_tbl:
-	# 		with engine.connect() as conn, conn.begin():
-	# 			q_community_parcel_totals = conn.execute(text("SELECT COMMUNITY, count(COMMUNITY) as COUNT FROM hoa_insights.parcels group by COMMUNITY order by COMMUNITY;"))
-	# 			community_total_parcels = [x for x in q_community_parcel_totals]
-	# 			community_total_parcels_df = pd.DataFrame(community_total_parcels)
-	# 			community_total_parcels_df.to_sql(name='communities', con=conn, if_exists='replace', index=False)
-	# 		logger.info(f"Table: {COMMUNITY_TOTALS} has been created on {my_secrets.rentals_dbname}")
-
-	# except exc.SQLAlchemyError as e:
-	# 	logger.critical(str(e))
-
-	# 	return False
-
-	# BH WEBSITE 'COMMUNITIES' tables
-	# try:
-	# 	engine = create_engine(f'mysql+pymysql://{BH_DB_USER}:{BH_DB_PW}@{BH_DB_HOSTNAME}/{BH_DB_NAME}')
-	# 	if not database_exists(engine.url):
-	# 		create_database(engine.url)
-	
-	# 	communities_tbl_insp = sa.inspect(engine)
-	# 	communities_tbl = communities_tbl_insp.has_table(COMMUNITY_TOTALS, schema="tascsnet_insights")
-	
-	# 	if not communities_tbl:
-	# 		with engine.connect() as conn, conn.begin():
-	# 			q_community_parcel_totals = conn.execute(text("SELECT COMMUNITY, count(COMMUNITY) as COUNT FROM tascsnet_insights.parcel_constants group by COMMUNITY order by COMMUNITY;"))
-	# 			community_total_parcels = [x for x in q_community_parcel_totals]
-	# 			community_total_parcels_df = pd.DataFrame(community_total_parcels)
-	# 			community_total_parcels_df.to_sql(name='communities',
-	# 			con=conn,
-	# 			if_exists='replace',
-	# 			index=False,
-	# 			)
-	# 		logger.info(f"Table: {COMMUNITY_TOTALS} has been created on Bluehost")
-	
-	# except exc.SQLAlchemyError as e:
-	# 	logger.critical(str(e))
 
 	return True
