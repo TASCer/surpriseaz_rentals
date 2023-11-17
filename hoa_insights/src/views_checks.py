@@ -105,7 +105,7 @@ def check():
                     `rentals`.`CONTACT` AS `CONTACT`,
                     `rentals`.`CONTACT_ADX` AS `CONTACT_ADX`,
                     `rentals`.`CONTACT_PH` AS `CONTACT_PH`,
-                    `parcels`.`COMMUNITY` AS `COOMMUNITY`,
+                    `parcels`.`COMMUNITY` AS `COMMUNITY`,
                     `parcels`.`LAT` AS `LAT`,
                     `parcels`.`LONG` AS `LONG`,
                     `parcels`.`SITUS` AS `SITUS`
