@@ -1,9 +1,11 @@
-![TASCS LOGO](../images/logo.png)
+![TASCS LOGO](../hoa_insights/images/logo.png)
 # surpriseaz_rentals
 "HELPING KEEP HOA BOARDS IN THE KNOW AND COMMUNITY MANAGEMENT COMPANIES HONEST"
 
-Provides rental parcel data for a Home Owners Association (HOA) community by accessing public data and presenting it in a timely and community member friendly 
-and accessible manner.
+Provides rental parcel information for a Home Owners Association (HOA) community by accessing public data and presenting it in a timely, community member friendly, and accessible manner.
+
+### See It 
+[Rental Map of area](https://hoa.tascs.net/areaMap.php)
 
 Currently, the county assessor's office is the only entity providing a free API that I could find. 
     
