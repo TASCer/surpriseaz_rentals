@@ -1,0 +1,18 @@
+2023-11-03 11:02:01,077 - __main__ - INFO - Checking RDBMS Availability
+2023-11-03 11:02:17,117 - db_checks - WARNING - Table: parcels did not exist and has been created and seeded
+2023-11-03 11:02:20,014 - db_checks - WARNING - Table: communities did not exist and has been created and seeded
+2023-11-03 11:02:20,017 - db_checks - WARNING - Table: owners did not exist and has been created
+2023-11-03 11:02:20,021 - db_checks - WARNING - Table: rentals did not exist and has been created
+2023-11-03 11:02:20,024 - db_checks - WARNING - Table: historical_sales did not exist and has been created
+2023-11-03 11:02:20,026 - db_checks - WARNING - Table: historical_owners did not exist and has been created
+2023-11-03 11:02:23,514 - triggers_checks - INFO - TRIGGER: AFTER_SALE_UPDATE has been created
+2023-11-03 11:02:23,723 - triggers_checks - INFO - TRIGGER: AFTER_OWNER_UPDATE has been created
+2023-11-03 11:02:24,867 - views_checks - INFO - top_classed_rental_ownership top_reg_rental_ownership top_rental_ownership_type 
+                    classed_rentals-registered_rentals-community_rental_owner_types created
+2023-11-03 11:02:24,868 - __main__ - INFO - RDMS: True | TRIGGERS: True | TABLES: True | VIEWS: True
+2023-11-03 11:02:24,868 - __main__ - INFO - ********** HOA INSIGHT PROCESSING STARTED **********
+2023-11-03 11:02:25,115 - get_parcel_data - INFO - Accessing Assessor API to get latest insights
+2023-11-03 11:27:53,885 - get_parcel_data - INFO - All latest parcel data consumed from API
+2023-11-03 11:48:48,025 - publish_rental_insights - INFO - Registered Rentals: 1081 - Classed Rentals - 382
+2023-11-03 11:48:48,046 - __main__ - INFO - NO SALES OR OWNER CHANGES
+2023-11-03 11:48:48,046 - __main__ - INFO - ********** HOA INSIGHT PROCESSING COMPLETED **********

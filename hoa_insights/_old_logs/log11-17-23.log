@@ -1,0 +1,35 @@
+2023-11-17 06:15:48,630 - __main__ - INFO - Checking RDBMS Availability
+2023-11-17 06:16:09,475 - db_checks - WARNING - Table: parcels did not exist and has been created and seeded
+2023-11-17 06:16:13,195 - db_checks - WARNING - Table: communities did not exist and has been created and seeded
+2023-11-17 06:16:13,493 - views_checks - INFO - community_rental_owner_types created
+2023-11-17 06:16:13,702 - views_checks - INFO - top_rental_ownership_type created
+2023-11-17 06:16:14,003 - views_checks - INFO - registered_rentals created
+2023-11-17 06:16:14,420 - views_checks - INFO - classed_rentals created
+2023-11-17 06:16:14,645 - views_checks - INFO - top_reg_rental_ownership created
+2023-11-17 06:16:14,853 - views_checks - INFO - top_classed_rental_ownership created
+2023-11-17 06:16:14,854 - __main__ - INFO - RDMS: True | TRIGGERS: True | TABLES: True | VIEWS: True
+2023-11-17 06:16:16,521 - publish_rental_insights - INFO - Registered Rentals: 1083 - Classed Rentals - 386
+2023-11-17 06:16:20,306 - publish_rental_insights - INFO - Table 'all_registered_rentals' has been updated REMOTELY
+2023-11-17 06:16:21,767 - publish_rental_insights - INFO - Table: 'all_classed_rentals' has been updated REMOTELY
+2023-11-17 06:16:22,258 - publish_rental_insights - INFO - Table: 'last_updated' has been updated REMOTELY
+2023-11-17 06:16:22,485 - __main__ - INFO - NO SALES OR OWNER CHANGES
+2023-11-17 06:16:22,486 - __main__ - INFO - ********** HOA INSIGHT PROCESSING COMPLETED **********
+2023-11-17 06:19:06,693 - __main__ - INFO - Checking RDBMS Availability
+2023-11-17 06:19:07,068 - views_checks - INFO - community_rental_owner_types created
+2023-11-17 06:19:07,259 - views_checks - INFO - top_rental_ownership_type created
+2023-11-17 06:19:07,994 - views_checks - INFO - registered_rentals created
+2023-11-17 06:19:08,277 - views_checks - INFO - classed_rentals created
+2023-11-17 06:19:08,737 - views_checks - INFO - top_reg_rental_ownership created
+2023-11-17 06:19:08,937 - views_checks - INFO - top_classed_rental_ownership created
+2023-11-17 06:19:08,937 - __main__ - INFO - RDMS: True | TRIGGERS: True | TABLES: True | VIEWS: True
+2023-11-17 06:19:08,938 - __main__ - INFO - ********** HOA INSIGHT PROCESSING STARTED **********
+2023-11-17 06:19:09,169 - get_parcel_data - INFO - Accessing Assessor API to get latest insights
+2023-11-17 06:44:41,769 - get_parcel_data - INFO - All latest parcel data consumed from API
+2023-11-17 06:49:13,755 - publish_rental_insights - INFO - Registered Rentals: 1372 - Classed Rentals - 496
+2023-11-17 06:49:18,147 - publish_rental_insights - INFO - Table 'all_registered_rentals' has been updated REMOTELY
+2023-11-17 06:49:19,528 - publish_rental_insights - INFO - Table: 'all_classed_rentals' has been updated REMOTELY
+2023-11-17 06:49:20,014 - publish_rental_insights - INFO - Table: 'last_updated' has been updated REMOTELY
+2023-11-17 06:49:20,621 - insight_reports - INFO - community_ytd_sales_avg.html sent to tascs.test web server
+2023-11-17 06:49:21,217 - __main__ - INFO - New Owners: 7 - New Sales: 6
+2023-11-17 06:49:21,573 - insight_reports - INFO - recent_changes.html sent to tascs.test web server
+2023-11-17 06:49:22,178 - __main__ - INFO - ********** HOA INSIGHT PROCESSING COMPLETED **********

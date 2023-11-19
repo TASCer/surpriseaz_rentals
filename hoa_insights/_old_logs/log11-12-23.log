@@ -1,0 +1,16 @@
+2023-11-12 02:05:04,018 - __main__ - INFO - Checking RDBMS Availability
+2023-11-12 02:05:06,522 - views_checks - INFO - top_classed_rental_ownership top_reg_rental_ownership top_rental_ownership_type 
+                    classed_rentals-registered_rentals-community_rental_owner_types created
+2023-11-12 02:05:06,523 - __main__ - INFO - RDMS: True | TRIGGERS: True | TABLES: True | VIEWS: True
+2023-11-12 02:05:06,523 - __main__ - INFO - ********** HOA INSIGHT PROCESSING STARTED **********
+2023-11-12 02:05:06,717 - get_parcel_data - INFO - Accessing Assessor API to get latest insights
+2023-11-12 02:17:48,126 - get_parcel_data - WARNING - JSON DECODE ISSUE https://mcassessor.maricopa.gov/parcel/501-95-795
+2023-11-12 02:27:15,163 - get_parcel_data - INFO - All latest parcel data consumed from API
+2023-11-12 02:27:47,017 - publish_rental_insights - INFO - Registered Rentals: 1081 - Classed Rentals - 386
+2023-11-12 02:27:51,522 - publish_rental_insights - INFO - Table 'all_registered_rentals' has been updated REMOTELY
+2023-11-12 02:27:54,089 - publish_rental_insights - INFO - Table: 'all_classed_rentals' has been updated REMOTELY
+2023-11-12 02:27:55,565 - publish_rental_insights - INFO - Table: 'last_updated' has been updated REMOTELY
+2023-11-12 02:27:56,084 - insight_reports - INFO - community_ytd_sales_avg.html sent to tascs.test web server
+2023-11-12 02:27:56,651 - __main__ - INFO - New Owners: 2 - New Sales: 7
+2023-11-12 02:27:57,008 - insight_reports - INFO - recent_changes.html sent to tascs.test web server
+2023-11-12 02:27:57,580 - __main__ - INFO - ********** HOA INSIGHT PROCESSING COMPLETED **********

@@ -1,0 +1,15 @@
+2023-11-15 02:05:06,492 - __main__ - INFO - Checking RDBMS Availability
+2023-11-15 02:05:08,779 - views_checks - INFO - top_classed_rental_ownership top_reg_rental_ownership top_rental_ownership_type 
+                    classed_rentals-registered_rentals-community_rental_owner_types created
+2023-11-15 02:05:08,779 - __main__ - INFO - RDMS: True | TRIGGERS: True | TABLES: True | VIEWS: True
+2023-11-15 02:05:08,779 - __main__ - INFO - ********** HOA INSIGHT PROCESSING STARTED **********
+2023-11-15 02:05:08,991 - get_parcel_data - INFO - Accessing Assessor API to get latest insights
+2023-11-15 02:26:52,179 - get_parcel_data - INFO - All latest parcel data consumed from API
+2023-11-15 02:27:24,675 - publish_rental_insights - INFO - Registered Rentals: 1081 - Classed Rentals - 387
+2023-11-15 02:27:28,470 - publish_rental_insights - INFO - Table 'all_registered_rentals' has been updated REMOTELY
+2023-11-15 02:27:29,598 - publish_rental_insights - INFO - Table: 'all_classed_rentals' has been updated REMOTELY
+2023-11-15 02:27:30,108 - publish_rental_insights - INFO - Table: 'last_updated' has been updated REMOTELY
+2023-11-15 02:27:31,342 - insight_reports - INFO - community_ytd_sales_avg.html sent to tascs.test web server
+2023-11-15 02:27:33,631 - __main__ - INFO - New Owners: 3 - New Sales: 2
+2023-11-15 02:27:34,013 - insight_reports - INFO - recent_changes.html sent to tascs.test web server
+2023-11-15 02:27:34,574 - __main__ - INFO - ********** HOA INSIGHT PROCESSING COMPLETED **********
