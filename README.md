@@ -1,4 +1,4 @@
-![TASCS LOGO](/images/logo.png)
+![TASCS LOGO](../images/logo.png)
 # surpriseaz_rentals
 "HELPING KEEP HOA BOARDS IN THE KNOW AND COMMUNITY MANAGEMENT COMPANIES HONEST"
 
