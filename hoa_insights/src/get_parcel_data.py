@@ -58,7 +58,7 @@ def process_api():
         Parcel sales changes sent to historical_sales table.
         Parcel ownership changes sent to historical_owners table.
     """
-    APNS = get_parcel_apns()
+    APNS: list = get_parcel_apns()
     logger.info("Accessing Assessor API to get latest insights")
     consumed_parcel_data: object = asyncio.run(async_main(APNS))
     logger.info("All latest parcel data consumed from API")
@@ -77,7 +77,7 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> o
 
     except (json.JSONDecodeError, aiohttp.client.ClientOSError, aiohttp.client.ContentTypeError,
             aiohttp.ClientResponseError, TypeError, aiohttp.ClientPayloadError) as e:
-        logger.warning(f"JSON DECODE ISSUE {url}")
+        logger.warning(f"JSON DECODE ISSUE? {url}->{e}")
         
         await asyncio.sleep(4)
         
@@ -89,9 +89,9 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> o
 
 async def async_main(APNS: list) -> object:
     """ Takes in a list of APN's
-        Creates API connection and retry client
-        Iterates through list of APN's creating get_parcel_details tasks
-        Returns a list of dictionary objects for each parcel processed
+        Creates API connection/session and retry client
+        Iterates through list of APNs creating get_parcel_details tasks
+        Returns a list of dictionary objects for each APN/parcel processed
     """
     connector: TCPConnector = TCPConnector(ssl=False, limit=40, limit_per_host=40, enable_cleanup_closed=False)
     async with RetryClient(headers=API_HEADER, connector=connector, raise_for_status=False,

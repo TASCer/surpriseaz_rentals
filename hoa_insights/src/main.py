@@ -55,8 +55,8 @@ def get_new_insights() -> DataFrame:
         Returns dataframe of changes to parcel(s)
     """
     owner_updates, sale_updates = get_parcel_changes.check()
-    owner_update_count = len(owner_updates)
-    sale_update_count = len(sale_updates)
+    owner_update_count: int = len(owner_updates)
+    sale_update_count: int = len(sale_updates)
     
     if sale_update_count >= 1:
         ytd_sales.get_average_sale_price()
@@ -93,7 +93,7 @@ if __name__ == '__main__':
             if have_database_remote and have_tables_remote:
                 publish_rental_insights.web_publish()
     
-        parcel_changes = get_new_insights()
+        parcel_changes: DataFrame = get_new_insights()
 
         if not parcel_changes.empty:
             insight_reports.parcel_changes(parcel_changes)

@@ -68,9 +68,6 @@ def update(latest_data):
 	if latest_data is None:
 		logger.warning("No data found")
 	
-	# dt_today = dt.date.today()
-	# todays_date: str = dt_today.strftime('%Y-%m-%d')
-	
 	try:
 		engine = create_engine(
 			f'mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}')
