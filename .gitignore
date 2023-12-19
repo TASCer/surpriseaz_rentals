@@ -3,7 +3,7 @@ hoa_insights/src/my_secrets.py
 hoa_insights/src/financials/__pycache__/*
 hoa_insights/src/__pycache__/*
 hoa_insights/src/tests/__pycache__/*
-/_old_logs/*.log
+hoa_insights/_old_logs/*.log
 /hoa_insights/output/csv/financial/*.csv
 /hoa_insights/output/csv/latest_changes/*.csv
 /hoa_insights/output/web_reports/financial/*.html
