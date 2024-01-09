@@ -77,7 +77,7 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> o
 
     except (json.JSONDecodeError, aiohttp.client.ClientOSError, aiohttp.client.ContentTypeError,
             aiohttp.ClientResponseError, TypeError, aiohttp.ClientPayloadError) as e:
-        logger.warning(f"{e}")
+        logger.warning(f"{e} - {url}")
         
         await asyncio.sleep(4)
         
