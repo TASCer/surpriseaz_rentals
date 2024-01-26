@@ -10,9 +10,16 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from logging import Logger
+from ssl import Purpose
 
 now: datetime = dt.datetime.now()
 todays_date: str = now.strftime('%D').replace('/', '-')
+
+email_reciever: list[str] = my_secrets.email_to
+email_sender: str = my_secrets.postfix_mail_from
+mail_server = my_secrets.postfix_mailhost
+email_user = my_secrets.postfix_user
+email_password = my_secrets.postfix_password
 
 
 def send_mail(subject: str, attachment_path: object = None):
@@ -20,13 +27,13 @@ def send_mail(subject: str, attachment_path: object = None):
         Sends email to receiver_email contacts
     """
     logger: Logger = logging.getLogger(__name__)
-    sender_email: str = my_secrets.mail_from
-    receiver_email: list[str] = my_secrets.email_to
+    # sender_email: str = sender_email
+    # receiver_email: list[str] = my_secrets.email_to
 
     msg: MIMEMultipart = MIMEMultipart("alternative")
     msg["Subject"]: str = f"{subject}"
-    msg["From"]: str = sender_email
-    msg["To"]: str = receiver_email[0]
+    msg["From"]: str = email_sender
+    msg["To"]: str = email_reciever[0]
 
     if attachment_path:
         html_attachments: str = """\
@@ -68,13 +75,31 @@ def send_mail(subject: str, attachment_path: object = None):
         part_basic: MIMEText = MIMEText(html_basic, "html")
         msg.attach(part_basic)
 
-    with smtplib.SMTP(my_secrets.postfix_mailhost, 25) as server:
-        try:
-            server.sendmail(sender_email, receiver_email, msg.as_string())
+    # NORMAL PORT 25 METHOD WORKING
+    # with smtplib.SMTP(my_secrets.postfix_mailhost, 25) as server:
+    #     try:
+    #         server.sendmail(email_sender, email_reciever, msg.as_string())
 
-        except smtplib.SMTPException as e:
-            logger.exception(str(e))
+    #     except smtplib.SMTPException as e:
+    #         logger.exception(str(e))
 
+    # PORT 587 w/auth sasl_method = PLAIN phpmailer has it LOGIN
+    try:
+        with smtplib.SMTP(mail_server, 587, local_hostname= 'rpi4.tascs.test') as server:
+            server.ehlo()
+            server.starttls()
+            server.login(email_user, email_password)
+            server.sendmail(email_sender, email_reciever, msg.as_string())
+            logger.info("emil sent")
+    
+    except (smtplib.SMTPException) as e:
+        logger.exception(f"{str(e)}")
+        
+    
+    
+    
+    
+    
     # #################################### SSL TESTING
     # context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)   # ssl.create_default_context
     # context.set_ciphers('TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384')        #("TLS_RSA_WITH_AES_128_CBC_SHA256")     # ("TLS_DHE_RSA_WITH_AES_128_GCM_SHA256")
@@ -113,4 +138,4 @@ def send_mail(subject: str, attachment_path: object = None):
 #     except ssl.SSLCertVerificationError as e:
 #         print(e)
 #
-# send_mail("hello, NON TLS test to rpi4 on port 25. Shows no date!?")
+send_mail("hello, NON TLS test on port 25. Shows no date!?")
