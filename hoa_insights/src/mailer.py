@@ -17,7 +17,7 @@ todays_date: str = now.strftime('%D').replace('/', '-')
 
 email_reciever: list[str] = my_secrets.email_to
 email_sender: str = my_secrets.postfix_mail_from
-mail_server = my_secrets.postfix_mailhost
+email_server = my_secrets.postfix_mailhost
 email_user = my_secrets.postfix_user
 email_password = my_secrets.postfix_password
 
@@ -64,9 +64,9 @@ def send_mail(subject: str, attachment_path: object = None):
         html_basic: str = """\
             <html>
               <body>
-                <p><b>Python Report Mailer</b>
+                <p><b>Python HOA INSIGHTS Report Mailer</b>
                 <br>
-                   Visit <a href="https://roadspies.tascs.test">ROADSPIES</a> 
+                   Visit <a href="https://hoa.tascs.test">HOA</a> 
                    for more information.
                 </p>
               </body>
@@ -85,7 +85,7 @@ def send_mail(subject: str, attachment_path: object = None):
 
     # PORT 587 w/auth sasl_method = PLAIN phpmailer has it LOGIN
     try:
-        with smtplib.SMTP(mail_server, 587, local_hostname= 'rpi4.tascs.test') as server:
+        with smtplib.SMTP(email_server, 587, local_hostname= 'rpi4.tascs.test') as server:
             server.ehlo()
             server.starttls()
             server.login(email_user, email_password)
@@ -94,13 +94,28 @@ def send_mail(subject: str, attachment_path: object = None):
     
     except (smtplib.SMTPException) as e:
         logger.exception(f"{str(e)}")
-        
     
     
+    #################################### SSL TESTING
+    # print(ssl.OPENSSL_VERSION)
+    # context = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)
+    # ciphers = context.get_ciphers()
+    # print(len(ciphers))  # none?!
+    # ca_certs = context.get_ca_certs()
+    # print(ca_certs)
     
+    # try:
+    #   with smtplib.SMTP_SSL(email_server, 587, context=context) as server:
+    #       server.ehlo()
+    #       server.starttls()
+    #       server.login(email_user, email_password)
+    #       server.sendmail(email_sender, email_reciever, msg.as_string())
+    #       logger.info("emil sent")
+
+    # except (smtplib.SMTPException) as e:
+    #     logger.exception(f"{str(e)}")
+
     
-    
-    # #################################### SSL TESTING
     # context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)   # ssl.create_default_context
     # context.set_ciphers('TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384')        #("TLS_RSA_WITH_AES_128_CBC_SHA256")     # ("TLS_DHE_RSA_WITH_AES_128_GCM_SHA256")
     # context.hostname_checks_common_name = False
