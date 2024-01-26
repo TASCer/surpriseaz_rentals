@@ -5,6 +5,7 @@ import get_parcel_changes
 import get_parcel_data
 import insight_reports
 import logging
+import mailer
 import my_secrets
 import pandas as pd
 import publish_rental_insights
@@ -104,4 +105,6 @@ if __name__ == '__main__':
     else:
         logger.error(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
 
+    mailer.send_mail("HOA INSIGHTS PROCESSING COMPLETE")
+    
     logger.info(f"********** HOA INSIGHT PROCESSING COMPLETED **********")
