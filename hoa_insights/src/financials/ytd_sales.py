@@ -54,7 +54,6 @@ def get_average_sale_price():
 				p.COMMUNITY,
 				o.SALE_DATE,
 				o.SALE_PRICE
-				# AVG(s.SALE_PRICE)
 				FROM
 				owners o 
 				INNER JOIN parcels p ON p.APN = o.APN
