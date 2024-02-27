@@ -21,8 +21,8 @@ DB_PW = f'{my_secrets.debian_dbpass}'
 now: datetime = dt.datetime.now()
 todays_date: str = now.strftime('%D').replace('/', '-')
 
-ytd_start: str = '2023-01-01'
-ytd_end: str = '2024-01-01'
+ytd_start: str = '2024-01-01'
+ytd_end: str = '2025-01-01'
 
 
 def format_price(price: int) -> str:
@@ -57,7 +57,8 @@ def get_average_sale_price():
 				FROM
 				owners o 
 				INNER JOIN parcels p ON p.APN = o.APN
-				where o.SALE_DATE >= '2023-01-01';""", conn, parse_dates=[1], coerce_float=False)
+				where o.SALE_DATE >= '{ytd_start}' and o.SALE_DATE < '{ytd_end}';""", conn, parse_dates=[1], coerce_float=False)
+
 			all_sales_ytd.dropna(inplace=True)
 			
 		except (IOError, FileNotFoundError) as e:
