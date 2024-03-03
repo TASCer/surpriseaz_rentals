@@ -12,3 +12,4 @@ hoa_insights/_old_logs/*.log
 hoa_insights/output/pdf/*.pdf
 hoa_insights/output/pdf/*.pdf
 hoa_insights/output/web_reports/parcel_changes/*.html
+hoa_insights/src/.mailer.py.swp

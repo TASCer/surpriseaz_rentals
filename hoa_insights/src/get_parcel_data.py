@@ -53,11 +53,8 @@ def get_parcel_apns() -> object:
         logger.error(str(e))
     
     
-def process_api():
-    """ Iterate through each community parcel getting the latest data from API.
-        Parcel sales changes sent to historical_sales table.
-        Parcel ownership changes sent to historical_owners table.
-    """
+def process_api() -> list[object]: 
+    """ Iterate through each community parcel getting the latest data from API."""
     APNS: list = get_parcel_apns()
     logger.info("Accessing Assessor API to get latest insights")
     consumed_parcel_data: object = asyncio.run(async_main(APNS))

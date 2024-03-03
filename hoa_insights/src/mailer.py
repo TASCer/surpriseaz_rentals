@@ -27,13 +27,11 @@ def send_mail(subject: str, attachment_path: object = None):
         Sends email to receiver_email contacts
     """
     logger: Logger = logging.getLogger(__name__)
-    # sender_email: str = sender_email
-    # receiver_email: list[str] = my_secrets.email_to
-
+  
     msg: MIMEMultipart = MIMEMultipart("alternative")
-    msg["Subject"]: str = f"{subject}"
-    msg["From"]: str = email_sender
-    msg["To"]: str = email_reciever[0]
+    msg["Subject"] = f"{subject}"
+    msg["From"] = email_sender
+    msg["To"] = email_reciever[0]
 
     if attachment_path:
         html_attachments: str = """\
@@ -90,7 +88,7 @@ def send_mail(subject: str, attachment_path: object = None):
             server.starttls()
             server.login(email_user, email_password)
             server.sendmail(email_sender, email_reciever, msg.as_string())
-            logger.info("emil sent")
+            logger.info("email sent")
     
     except (smtplib.SMTPException) as e:
         logger.exception(f"{str(e)}")
@@ -153,4 +151,4 @@ def send_mail(subject: str, attachment_path: object = None):
 #     except ssl.SSLCertVerificationError as e:
 #         print(e)
 #
-send_mail("hello, NON TLS test on port 25. Shows no date!?")
+# send_mail("hello, NON TLS test on port 25. Shows no date!?")

@@ -3,7 +3,7 @@ import datetime as dt
 import logging
 import my_secrets
 import os
-import pandas as pd
+# import pandas as pd
 import pdfkit as pdf
 import shutil
 import platform
@@ -56,7 +56,7 @@ def parcel_changes(parcel_changes: object):
 		try:
 			os.system(f'scp {parcel_changes_report} {my_secrets.web_server_path_linux}')
 			logger.info(f"{parcel_changes_report.split('/')[-1]} sent to tascs.test web server")
-		except BaseException as e:
+		except BaseException:
 			logger.critical(f"{parcel_changes_report} NOT sent to tascs.test web server. Investigate")
 	else:
 		try:
@@ -88,7 +88,7 @@ def financials(community_avg_prices):
 		try:
 			os.system(f'scp {finance_report} {my_secrets.web_server_path_linux}')
 			logger.info(f"{finance_report.split('/')[-1]} sent to tascs.test web server")
-		except BaseException as e:
+		except BaseException:
 			logger.critical(f"{finance_report} NOT sent to tascs.test web server. Investigate")
 	else:
 		try:
@@ -101,10 +101,10 @@ def financials(community_avg_prices):
 	pdf.from_file(finance_report, '../output/pdf/community_ytd_sales_avg.pdf')
 
 	# TO email
-	# report_attachment: str = f"{my_secrets.html_finance_path}community_ytd_sales_avg.html"
+	report_attachment: str = f"{my_secrets.html_finance_path}community_ytd_sales_avg.html"
 
-	# try:
-	# 	send_mail("COMMUNITY YTD AVG SALES", report_attachment)
-	# 	logger.info("COMMUNITY YTD AVG SALES pdf emailed")
-	# except BaseException as e:
-	# 	logger.exception(str(e))
+	try:
+		send_mail("COMMUNITY YTD AVG SALES", report_attachment)
+		logger.info("COMMUNITY YTD AVG SALES pdf emailed")
+	except BaseException as e:
+		logger.exception(str(e))

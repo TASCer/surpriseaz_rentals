@@ -1,4 +1,4 @@
-import datetime as dt
+# import datetime as dt
 import logging
 import my_secrets
 import re
@@ -28,7 +28,7 @@ def parse_date(date: str) -> str:
 	try:
 		date_parsed = parse(date)
 
-	except TypeError as e:
+	except TypeError:
 		#  Quick Fix. Needs a default date. Rarely occurs mostly on rental co parcels
 		date_parsed = parse('1901-01-01')
 
@@ -85,7 +85,7 @@ def update(latest_data):
 				is_rental: bool = parcel_details['IsRental']
 				last_legal_class: str = parcel_details['Valuations'][0]['LegalClassificationCode']
 				deed_date = parse('1901-01-01')
-				sales_price = 0
+				sale_price = 0
 				logger.warning(f"No Owner Identified!! {apn}")
 
 			elif parcel_details['Owner']:

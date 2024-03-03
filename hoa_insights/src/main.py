@@ -7,7 +7,7 @@ import insight_reports
 import logging
 import mailer
 import my_secrets
-import pandas as pd
+# import pandas as pd
 import publish_rental_insights
 import triggers_checks
 import update_parcel_data
@@ -40,10 +40,10 @@ TESTING: bool = False
 def start_insights() -> list[object]:
     """Gathers information on parcels and returns list of each parcels current data"""
     if not TESTING:
-        logger.info(f"********** HOA INSIGHT PROCESSING STARTED **********")
+        logger.info("********** HOA INSIGHT PROCESSING STARTED **********")
         results = get_parcel_data.process_api()
     else:
-        logger.info(f"********** [TESTING] HOA INSIGHT PROCESSING STARTED **********")
+        logger.info("********** [TESTING] HOA INSIGHT PROCESSING STARTED **********")
         test_get_parcel_data.process_json()
         results = test_update_parcel_data.process_json()
 
@@ -107,4 +107,4 @@ if __name__ == '__main__':
 
     mailer.send_mail("HOA INSIGHTS PROCESSING COMPLETE")
     
-    logger.info(f"********** HOA INSIGHT PROCESSING COMPLETED **********")
+    logger.info("********** HOA INSIGHT PROCESSING COMPLETED **********")
