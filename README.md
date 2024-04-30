@@ -32,4 +32,6 @@ API Documentation: https://mcassessor.maricopa.gov/file/home/MC-Assessor-API-Doc
 
 PDF report functionality will need the pdfkit Python module and wkhtmltopdf to render. https://wkhtmltopdf.org/
 
+/utils folder contains scheduling options based on OS.
+
 

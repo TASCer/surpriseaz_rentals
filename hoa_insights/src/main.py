@@ -7,7 +7,6 @@ import insight_reports
 import logging
 import mailer
 import my_secrets
-# import pandas as pd
 import publish_rental_insights
 import triggers_checks
 import update_parcel_data

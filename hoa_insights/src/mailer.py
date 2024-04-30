@@ -2,7 +2,8 @@
 import datetime as dt
 import logging
 import my_secrets
-import smtplib, ssl
+import smtplib
+# import ssl
 
 from datetime import datetime
 from email import encoders
@@ -10,7 +11,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from logging import Logger
-from ssl import Purpose
+# from ssl import Purpose
 
 now: datetime = dt.datetime.now()
 todays_date: str = now.strftime('%D').replace('/', '-')

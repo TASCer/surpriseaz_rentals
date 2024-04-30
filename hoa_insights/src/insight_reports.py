@@ -1,9 +1,8 @@
-# ADD SECURE EMAIL & ADD MULTI-attachments
+#TODO ADD SECURE EMAIL & ADD MULTI-attachments
 import datetime as dt
 import logging
 import my_secrets
 import os
-# import pandas as pd
 import pdfkit as pdf
 import shutil
 import platform
