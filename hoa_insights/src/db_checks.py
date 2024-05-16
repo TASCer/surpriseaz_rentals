@@ -43,8 +43,8 @@ def schema():
 		if not database_exists(engine.url):
 			create_database(engine.url)
 
-	except (exc.SQLAlchemyError, exc.OperationalError) as e:
-		logger.critical(str(e))
+	except (exc.SQLAlchemyError, exc.OperationalError):
+		logger.critical("Schema Issue")
 		return False
 
 	return True
@@ -60,8 +60,8 @@ def tables():
 	try:
 		engine = create_engine(f'mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}')
 
-	except (exc.SQLAlchemyError, exc.OperationalError) as e:
-		logger.critical(str(e))
+	except (exc.SQLAlchemyError, exc.OperationalError):
+		logger.critical("Tables Issue")
 		return False
 
 	communities_tbl_insp = sa.inspect(engine)
