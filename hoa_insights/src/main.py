@@ -28,7 +28,7 @@ root_logger.setLevel(logging.INFO)
 fh = logging.FileHandler(f'../log{todays_date}.log')
 fh.setLevel(logging.DEBUG)
 
-formatter: Formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter: Formatter = logging.Formatter('%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 
 root_logger.addHandler(fh)
