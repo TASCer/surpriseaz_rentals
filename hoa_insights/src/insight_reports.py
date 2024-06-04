@@ -68,7 +68,7 @@ def parcel_changes(parcel_changes: object):
 	pdf.from_file(parcel_changes_report, '../output/pdf/recent_changes.pdf')
 
 
-def financials(community_avg_prices):
+def financials(community_avg_prices) -> None:
 	"""	Takes in a df
 		Produces .html reports
 		Sends .html reports to web server for display

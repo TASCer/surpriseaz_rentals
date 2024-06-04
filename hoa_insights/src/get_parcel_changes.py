@@ -6,15 +6,16 @@ from logging import Logger
 from sqlalchemy import create_engine, exc, text
 
 # SQL DB connection constants
-DB_HOSTNAME = f'{my_secrets.debian_dbhost}'
-DB_NAME = f'{my_secrets.debian_dbname}'
-DB_USER = f'{my_secrets.debian_dbuser}'
-DB_PW = f'{my_secrets.debian_dbpass}'
+DB_HOSTNAME: str = f'{my_secrets.debian_dbhost}'
+DB_NAME: str = f'{my_secrets.debian_dbname}'
+DB_USER: str = f'{my_secrets.debian_dbuser}'
+DB_PW: str = f'{my_secrets.debian_dbpass}'
 
 
-def check():
-    """ Queries historical sales and owner tables for a timestamp of today
-        Owner and sales tables have a trigger to insert on update
+def check() -> tuple[list]:
+    """ 
+    Queries historical sales and owner tables for a timestamp of today
+    Owner table has a trigger to insert on update
     """
     dt_today = dt.date.today()
     todays_date: str = dt_today.strftime('%Y-%m-%d')
@@ -37,7 +38,7 @@ def check():
             logger.critical(str(e))
             exit()
             
-        sales_updates = [x for x in q_sales]
-        owners_updates = [x for x in q_owners]
+        sales_updates: list = [x for x in q_sales]
+        owners_updates: list = [x for x in q_owners]
     
     return owners_updates, sales_updates
