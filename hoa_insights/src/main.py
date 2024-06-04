@@ -37,7 +37,10 @@ TESTING: bool = False
 
 
 def start_insights() -> list[object]:
-    """Gathers information on parcels and returns list of each parcels current data"""
+    """
+    If not testing, gathers parcel data via ACCESSOR API and returns list of each parcels current data
+    If testing, gathers parcel data via JSON files and returns list of each parcels test data 
+    """
     if not TESTING:
         logger.info("********** HOA INSIGHT PROCESSING STARTED **********")
         results = get_parcel_data.process_api()
@@ -52,7 +55,7 @@ def start_insights() -> list[object]:
 def get_new_insights() -> DataFrame:
     """ Gets recent parcel changes by querying historical sales and owner tables for timestamp: today
         Creates a merged dataframe of changes that outputs to csv
-        Returns dataframe of changes to parcel(s)
+        Returns dataframe of parcel(s) changes or an empty dataframe if no changes
     """
     owner_updates, sale_updates = get_parcel_changes.check()
     owner_update_count: int = len(owner_updates)
@@ -75,6 +78,29 @@ def get_new_insights() -> DataFrame:
         return DataFrame()
 
 
+def main():
+    latest_parcel_data = start_insights()
+    update_parcel_data.update(latest_parcel_data)
+    if not TESTING:
+        have_database_remote: bool = db_checks_remote.schema()
+        have_tables_remote: bool = db_checks_remote.tables()
+        if have_database_remote and have_tables_remote:
+            publish_rental_insights.web_publish()
+
+    parcel_changes: DataFrame = get_new_insights()
+
+    if not parcel_changes.empty:
+        insight_reports.parcel_changes(parcel_changes)
+
+    else:
+        logger.info("NO SALES OR OWNER CHANGES")
+
+
+    mailer.send_mail("HOA INSIGHTS PROCESSING COMPLETE")
+
+    logger.info("********** HOA INSIGHT PROCESSING COMPLETED **********")
+
+
 if __name__ == '__main__':
     logger: Logger = logging.getLogger(__name__)
     logger.info("Checking RDBMS Availability")
@@ -85,25 +111,9 @@ if __name__ == '__main__':
 
     if have_database and have_triggers and have_tables and have_views:
         logger.info(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
-        latest_parcel_data = start_insights()
-        update_parcel_data.update(latest_parcel_data)
-        if not TESTING:
-            have_database_remote: bool = db_checks_remote.schema()
-            have_tables_remote: bool = db_checks_remote.tables()
-            if have_database_remote and have_tables_remote:
-                publish_rental_insights.web_publish()
-    
-        parcel_changes: DataFrame = get_new_insights()
 
-        if not parcel_changes.empty:
-            insight_reports.parcel_changes(parcel_changes)
-
-        else:
-            logger.info("NO SALES OR OWNER CHANGES")
+        main()
 
     else:
         logger.error(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
-
-    mailer.send_mail("HOA INSIGHTS PROCESSING COMPLETE")
-    
-    logger.info("********** HOA INSIGHT PROCESSING COMPLETED **********")
+        exit()
