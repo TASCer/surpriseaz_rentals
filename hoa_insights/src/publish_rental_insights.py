@@ -65,7 +65,7 @@ def web_publish():
         classed: list = [x for x in q_classed_rentals]
         classed_rentals: pd.DataFrame = pd.DataFrame(classed)
     
-        logger.info(f'Registered Rentals: {len(registered_rentals)} - Classed Rentals - {len(classed_rentals)}')
+        logger.info(f'\tRegistered Rentals: {len(registered_rentals)} - Classed Rentals - {len(classed_rentals)}')
 
     except exc.DBAPIError as e:
             logger.error(str(e))
@@ -82,7 +82,7 @@ def web_publish():
                             if_exists='replace',
                             index=False,
                             )
-                logger.info(f"Table 'all_registered_rentals' has been updated REMOTELY")
+                logger.info("\tTable: <all_registered_rentals> has been updated REMOTELY")
     
     
                 classed_rentals.to_sql(name='all_classed_rentals',
@@ -90,14 +90,14 @@ def web_publish():
                             if_exists='replace',
                             index=False,
                             )
-                logger.info(f"Table: 'all_classed_rentals' has been updated REMOTELY")
+                logger.info("\tTable: <all_classed_rentals> has been updated REMOTELY")
     
                 pd.Series(now).to_sql(name='last_updated',
                             con = conn,
                             if_exists='replace',
                             index=False,
                             )
-                logger.info(f"Table: 'last_updated' has been updated REMOTELY")
+                logger.info("\tTable: <last_updated> has been updated REMOTELY")
  
             except exc.SQLAlchemyError as e:
                 logger.critical(repr(e))

@@ -38,7 +38,7 @@ TESTING: bool = False
 
 def start_insights() -> list[object]:
     """
-    If not testing, gathers parcel data via ACCESSOR API and returns list of each parcels current data
+    If not testing, gathers parcel data via MARICOPA AZ ACCESSOR API and returns list of each parcels current data
     If testing, gathers parcel data via JSON files and returns list of each parcels test data 
     """
     if not TESTING:
@@ -53,9 +53,10 @@ def start_insights() -> list[object]:
 
 
 def get_new_insights() -> DataFrame:
-    """ Gets recent parcel changes by querying historical sales and owner tables for timestamp: today
-        Creates a merged dataframe of changes that outputs to csv
-        Returns dataframe of parcel(s) changes or an empty dataframe if no changes
+    """ 
+    Gets recent parcel changes by querying historical sales and owner tables for timestamp: today
+    Creates a merged dataframe of changes that outputs to csv
+    Returns dataframe of parcel(s) changes or an empty dataframe if no changes
     """
     owner_updates, sale_updates = get_parcel_changes.check()
     owner_update_count: int = len(owner_updates)
@@ -65,7 +66,7 @@ def get_new_insights() -> DataFrame:
         ytd_sales.get_average_sale_price()
     
     if owner_update_count >= 1 or sale_update_count >= 1:
-        logger.info(f'New Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}')
+        logger.info(f'\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}')
         owner_changes = DataFrame(owner_updates, columns=['APN', 'COMMUNITY', 'OWNER', 'DEED_DATE', 'DEED_TYPE']).set_index(['APN'])
         sale_changes = DataFrame(sale_updates, columns=['APN', 'COMMUNITY', 'SALE_DATE', 'SALE_PRICE']).set_index('APN')
         all_changes: DataFrame = owner_changes.merge(sale_changes, how='outer', on=['APN'], sort=True, suffixes=('', '_y'))

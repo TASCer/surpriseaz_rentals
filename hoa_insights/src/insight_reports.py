@@ -86,7 +86,7 @@ def financials(community_avg_prices) -> None:
 	if not platform.system() == 'Windows':
 		try:
 			os.system(f'scp {finance_report} {my_secrets.web_server_path_linux}')
-			logger.info(f"{finance_report.split('/')[-1]} sent to tascs.test web server")
+			logger.info(f"\t{finance_report.split('/')[-1]} sent to tascs.test web server")
 		except BaseException:
 			logger.critical(f"{finance_report} NOT sent to tascs.test web server. Investigate")
 	else:
@@ -104,6 +104,6 @@ def financials(community_avg_prices) -> None:
 
 	try:
 		send_mail("COMMUNITY YTD AVG SALES", report_attachment)
-		logger.info("COMMUNITY YTD AVG SALES pdf emailed")
+		logger.info("\tCOMMUNITY YTD AVG SALES pdf emailed")
 	except BaseException as e:
 		logger.exception(str(e))

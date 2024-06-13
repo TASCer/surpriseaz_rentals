@@ -57,7 +57,7 @@ def check():
                 GROUP BY `parcels`.`COMMUNITY` , `rentals`.`OWNER_TYPE`
             """))
         
-        logger.info(f"{COMMUNITY_RENTAL_TYPES} created")
+        logger.info(f"\t{COMMUNITY_RENTAL_TYPES} created")
     
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))  
@@ -114,7 +114,7 @@ def check():
                     JOIN `parcels` ON ((`rentals`.`APN` = `parcels`.`APN`)))
             """))
 
-        logger.info(f"{REGISTERED_RENTALS} created""")
+        logger.info(f"\t{REGISTERED_RENTALS} created""")
     
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
@@ -145,7 +145,7 @@ def check():
                 ((`owners`.`LEGAL_CODE` = '4.2')
                     AND (`owners`.`RENTAL` = 0))                
                     """))
-        logger.info(f"{CLASSED_RENTALS} created""")
+        logger.info(f"\t{CLASSED_RENTALS} created""")
     
 
     except exc.SQLAlchemyError as e:
@@ -170,7 +170,7 @@ def check():
             ORDER BY `c` DESC;      
                                 """))
 
-        logger.info(f"{TOP_REGISTERED_RENTAL_OWNERS} created""")
+        logger.info(f"\t{TOP_REGISTERED_RENTAL_OWNERS} created""")
     
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
@@ -194,7 +194,7 @@ def check():
                ORDER BY `c` DESC;      
                                    """))
 
-        logger.info(f"{TOP_CLASSED_RENTAL_OWNERS} created""")
+        logger.info(f"\t{TOP_CLASSED_RENTAL_OWNERS} created""")
     
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))

@@ -43,7 +43,7 @@ def send_mail(subject: str, attachment_path: object = None):
               <p>Please find the bi-monthly community changes report attached.</p>
               <br>
               <p>Visit below for more information</p>
-              <a href="https://hoa.tascs.locaL">TASCS - HOA</a>       
+              <a href="https://hoa.tascs.test">TASCS - HOA</a>       
             </body>
           </html>
           """
@@ -82,19 +82,28 @@ def send_mail(subject: str, attachment_path: object = None):
     #     except smtplib.SMTPException as e:
     #         logger.exception(str(e))
 
-    # PORT 587 w/auth sasl_method = PLAIN phpmailer has it LOGIN
+    # PORT 587 w/auth cyrus sasl_method = PLAIN phpmailer has it LOGIN
     try:
         with smtplib.SMTP(email_server, 587, local_hostname= 'rpi4.tascs.test') as server:
             server.ehlo()
             server.starttls()
-            server.login(email_user, email_password)
+            try:
+                server.login(email_user, email_password)
+            except smtplib.SMTPAuthenticationError as login_err:
+                logger.error(f"\t{login_err}")
+
             server.sendmail(email_sender, email_reciever, msg.as_string())
-            logger.info("email sent")
+            logger.info("\temail sent")
     
-    except (smtplib.SMTPException) as e:
-        logger.exception(f"{str(e)}")
+    except (smtplib.SMTPException) as err:
+        if 'Connection refused' in err.msg:
+            logger.error(f"\tCheck Email Server {err.msg}")
+            print(f"Check Email Server {err.msg}")
+
     
-    
+# send_mail("TEST FROM HOA_INSIGHTS")
+
+
     #################################### SSL TESTING
     # print(ssl.OPENSSL_VERSION)
     # context = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)

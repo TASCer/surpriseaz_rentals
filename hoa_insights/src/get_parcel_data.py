@@ -56,9 +56,9 @@ def get_parcel_apns() -> object:
 def process_api() -> list[object]: 
     """ Iterate through each community parcel getting the latest data from API."""
     APNS: list = get_parcel_apns()
-    logger.info("Accessing Assessor API to get latest insights")
+    logger.info("\tAccessing Assessor API to get latest insights")
     consumed_parcel_data: object = asyncio.run(async_main(APNS))
-    logger.info("All latest parcel data consumed from API")
+    logger.info("\tAll latest parcel data consumed from API")
 
     return consumed_parcel_data
 
@@ -85,10 +85,11 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> o
 
 
 async def async_main(APNS: list) -> object:
-    """ Takes in a list of APN's
-        Creates API connection/session and retry client
-        Iterates through list of APNs creating get_parcel_details tasks
-        Returns a list of dictionary objects for each APN/parcel processed
+    """ 
+    Takes in a list of APN's
+    Creates ACCESSOR API connection/session and retry client
+    Iterates through list of APNs creating get_parcel_details tasks
+    Returns a list of dictionary objects for each APN/parcel processed
     """
     connector: TCPConnector = TCPConnector(ssl=False, limit=40, limit_per_host=40, enable_cleanup_closed=False)
     async with RetryClient(headers=API_HEADER, connector=connector, raise_for_status=False,
