@@ -20,15 +20,17 @@ from tests import test_get_parcel_data
 from tests import test_update_parcel_data
 
 now: date = dt.date.today()
-todays_date: str = now.strftime('%D').replace('/', '-')
+todays_date: str = now.strftime("%D").replace("/", "-")
 
 root_logger: Logger = logging.getLogger()
 root_logger.setLevel(logging.INFO)
 
-fh = logging.FileHandler(f'../log{todays_date}.log')
+fh = logging.FileHandler(f"../log{todays_date}.log")
 fh.setLevel(logging.DEBUG)
 
-formatter: Formatter = logging.Formatter('%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s')
+formatter: Formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s"
+)
 fh.setFormatter(formatter)
 
 root_logger.addHandler(fh)
@@ -39,7 +41,7 @@ TESTING: bool = False
 def start_insights() -> list[object]:
     """
     If not testing, gathers parcel data via MARICOPA AZ ACCESSOR API and returns list of each parcels current data
-    If testing, gathers parcel data via JSON files and returns list of each parcels test data 
+    If testing, gathers parcel data via JSON files and returns list of each parcels test data
     """
     if not TESTING:
         logger.info("********** HOA INSIGHT PROCESSING STARTED **********")
@@ -53,7 +55,7 @@ def start_insights() -> list[object]:
 
 
 def get_new_insights() -> DataFrame:
-    """ 
+    """
     Gets recent parcel changes by querying historical sales and owner tables for timestamp: today
     Creates a merged dataframe of changes that outputs to csv
     Returns dataframe of parcel(s) changes or an empty dataframe if no changes
@@ -61,16 +63,25 @@ def get_new_insights() -> DataFrame:
     owner_updates, sale_updates = get_parcel_changes.check()
     owner_update_count: int = len(owner_updates)
     sale_update_count: int = len(sale_updates)
-    
+
     if sale_update_count >= 1:
         ytd_sales.get_average_sale_price()
-    
+
     if owner_update_count >= 1 or sale_update_count >= 1:
-        logger.info(f'\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}')
-        owner_changes = DataFrame(owner_updates, columns=['APN', 'COMMUNITY', 'OWNER', 'DEED_DATE', 'DEED_TYPE']).set_index(['APN'])
-        sale_changes = DataFrame(sale_updates, columns=['APN', 'COMMUNITY', 'SALE_DATE', 'SALE_PRICE']).set_index('APN')
-        all_changes: DataFrame = owner_changes.merge(sale_changes, how='outer', on=['APN'], sort=True, suffixes=('', '_y'))
-        all_changes.drop(all_changes.filter(regex='_y$').columns, axis=1, inplace=True)
+        logger.info(
+            f"\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}"
+        )
+        owner_changes = DataFrame(
+            owner_updates,
+            columns=["APN", "COMMUNITY", "OWNER", "DEED_DATE", "DEED_TYPE"],
+        ).set_index(["APN"])
+        sale_changes = DataFrame(
+            sale_updates, columns=["APN", "COMMUNITY", "SALE_DATE", "SALE_PRICE"]
+        ).set_index("APN")
+        all_changes: DataFrame = owner_changes.merge(
+            sale_changes, how="outer", on=["APN"], sort=True, suffixes=("", "_y")
+        )
+        all_changes.drop(all_changes.filter(regex="_y$").columns, axis=1, inplace=True)
         all_changes.to_csv(f"{my_secrets.csv_changes_path}{todays_date}.csv")
 
         return all_changes
@@ -96,13 +107,12 @@ def main():
     else:
         logger.info("NO SALES OR OWNER CHANGES")
 
-
     mailer.send_mail("HOA INSIGHTS PROCESSING COMPLETE")
 
     logger.info("********** HOA INSIGHT PROCESSING COMPLETED **********")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logger: Logger = logging.getLogger(__name__)
     logger.info("Checking RDBMS Availability")
     have_database: bool = db_checks.schema()
@@ -111,10 +121,14 @@ if __name__ == '__main__':
     have_views: bool = views_checks.check()
 
     if have_database and have_triggers and have_tables and have_views:
-        logger.info(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
+        logger.info(
+            f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }"
+        )
 
         main()
 
     else:
-        logger.error(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
+        logger.error(
+            f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }"
+        )
         exit()

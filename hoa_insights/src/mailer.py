@@ -14,7 +14,7 @@ from logging import Logger
 # from ssl import Purpose
 
 now: datetime = dt.datetime.now()
-todays_date: str = now.strftime('%D').replace('/', '-')
+todays_date: str = now.strftime("%D").replace("/", "-")
 
 email_reciever: list[str] = my_secrets.email_to
 email_sender: str = my_secrets.postfix_mail_from
@@ -24,11 +24,11 @@ email_password = my_secrets.postfix_password
 
 
 def send_mail(subject: str, attachment_path: object = None):
-    """ Takes a subject (str) and optional file attachment
-        Sends email to receiver_email contacts
+    """Takes a subject (str) and optional file attachment
+    Sends email to receiver_email contacts
     """
     logger: Logger = logging.getLogger(__name__)
-  
+
     msg: MIMEMultipart = MIMEMultipart("alternative")
     msg["Subject"] = f"{subject}"
     msg["From"] = email_sender
@@ -53,9 +53,7 @@ def send_mail(subject: str, attachment_path: object = None):
             part_attachments.set_payload(attachment.read())
             encoders.encode_base64(part_attachments)
             part_attachments.add_header(
-                "Content-Disposition",
-                "attachment",
-                filename=attachment_path
+                "Content-Disposition", "attachment", filename=attachment_path
             )
             msg.attach(part_attachments)
             msg.attach(html)
@@ -84,7 +82,9 @@ def send_mail(subject: str, attachment_path: object = None):
 
     # PORT 587 w/auth cyrus sasl_method = PLAIN phpmailer has it LOGIN
     try:
-        with smtplib.SMTP(email_server, 587, local_hostname= 'rpi4.tascs.test') as server:
+        with smtplib.SMTP(
+            email_server, 587, local_hostname="rpi4.tascs.test"
+        ) as server:
             server.ehlo()
             server.starttls()
             try:
@@ -94,42 +94,42 @@ def send_mail(subject: str, attachment_path: object = None):
 
             server.sendmail(email_sender, email_reciever, msg.as_string())
             logger.info("\temail sent")
-    
-    except (smtplib.SMTPException) as err:
-        if 'Connection refused' in err.msg:
+
+    except smtplib.SMTPException as err:
+        if "Connection refused" in err.msg:
             logger.error(f"\tCheck Email Server {err.msg}")
             print(f"Check Email Server {err.msg}")
 
-    
+
 # send_mail("TEST FROM HOA_INSIGHTS")
 
 
-    #################################### SSL TESTING
-    # print(ssl.OPENSSL_VERSION)
-    # context = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)
-    # ciphers = context.get_ciphers()
-    # print(len(ciphers))  # none?!
-    # ca_certs = context.get_ca_certs()
-    # print(ca_certs)
-    
-    # try:
-    #   with smtplib.SMTP_SSL(email_server, 587, context=context) as server:
-    #       server.ehlo()
-    #       server.starttls()
-    #       server.login(email_user, email_password)
-    #       server.sendmail(email_sender, email_reciever, msg.as_string())
-    #       logger.info("emil sent")
+#################################### SSL TESTING
+# print(ssl.OPENSSL_VERSION)
+# context = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)
+# ciphers = context.get_ciphers()
+# print(len(ciphers))  # none?!
+# ca_certs = context.get_ca_certs()
+# print(ca_certs)
 
-    # except (smtplib.SMTPException) as e:
-    #     logger.exception(f"{str(e)}")
+# try:
+#   with smtplib.SMTP_SSL(email_server, 587, context=context) as server:
+#       server.ehlo()
+#       server.starttls()
+#       server.login(email_user, email_password)
+#       server.sendmail(email_sender, email_reciever, msg.as_string())
+#       logger.info("emil sent")
 
-    
-    # context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)   # ssl.create_default_context
-    # context.set_ciphers('TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384')        #("TLS_RSA_WITH_AES_128_CBC_SHA256")     # ("TLS_DHE_RSA_WITH_AES_128_GCM_SHA256")
-    # context.hostname_checks_common_name = False
-    # context.check_hostname = False
-    # context.verify_mode = ssl.CERT_NONE
-    # ser_cert = ssl.get_server_certificate(my_secrets.exchange_mailhost, 25)
+# except (smtplib.SMTPException) as e:
+#     logger.exception(f"{str(e)}")
+
+
+# context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)   # ssl.create_default_context
+# context.set_ciphers('TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384')        #("TLS_RSA_WITH_AES_128_CBC_SHA256")     # ("TLS_DHE_RSA_WITH_AES_128_GCM_SHA256")
+# context.hostname_checks_common_name = False
+# context.check_hostname = False
+# context.verify_mode = ssl.CERT_NONE
+# ser_cert = ssl.get_server_certificate(my_secrets.exchange_mailhost, 25)
 #     context.load_default_certs()
 #     ca = context.get_ca_certs()
 #     c = context.get_ciphers()
