@@ -31,7 +31,7 @@ def parse_date(date: str) -> str:
     try:
         date_parsed = parse(date)
 
-    except TypeError as e:
+    except TypeError:
         #  Quick Fix. Needs a default date. Rarely occurs mostly on rental co parcels
         date_parsed = parse("1901-01-01")
 

@@ -47,7 +47,7 @@ def check():
 
         if not owners_triggers:
             try:
-                conn.execute(text(f"DROP TRIGGER IF EXISTS after_sale_update"))
+                conn.execute(text("DROP TRIGGER IF EXISTS after_sale_update"))
                 # OLD.SALE_DATE <> "1901-01-01" and OLD.SALE_PRICE <> 0
                 trig_sales = """CREATE DEFINER=`hoa_insights`@`%` TRIGGER `after_sale_update`
                                 AFTER UPDATE ON `owners`

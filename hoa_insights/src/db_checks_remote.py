@@ -2,11 +2,10 @@
 import datetime as dt
 import logging
 import my_secrets
-import pandas as pd
 import sqlalchemy as sa
 
 from logging import Logger
-from sqlalchemy import create_engine, exc, types, text, Column, Table, MetaData
+from sqlalchemy import create_engine, exc, types, Column, Table, MetaData
 from sqlalchemy_utils import database_exists, create_database
 
 now = dt.datetime.now()
@@ -74,26 +73,6 @@ def tables():
             Column("COMMUNITY", types.VARCHAR(100), primary_key=True),
             Column("COUNT", types.INT),
         )
-        # TODO how to get local table to renote now?
-        # try:
-        # 	with engine.connect() as conn, conn.begin():
-        # 		q_community_parcel_totals = conn.execute(text(
-        # 			"SELECT COMMUNITY, count(COMMUNITY) as COUNT FROM hoa_insights.parcels group by COMMUNITY order by COMMUNITY;"))
-        # 		community_total_parcels = [x for x in q_community_parcel_totals]
-        # 		community_total_parcels_df = pd.DataFrame(community_total_parcels)
-        # 		community_total_parcels_df.to_sql(
-        # 			name='communities',
-        # 			con=conn,
-        # 			if_exists='replace',
-        # 			index=False,
-        # 			dtype={"COMMUNITY": types.VARCHAR(100)}
-        # 		)
-        # 		conn.execute(text('alter table communities add primary key(COMMUNITY)'))
-
-        # 	logger.warning(f"Table: {COMMUNITY_TOTALS} did not exist and has been created and seeded")
-
-        # except (IOError, FileNotFoundError, exc.OperationalError, exc.ProgrammingError) as e:
-        # 	print(str(f"COMMUNITIES CREATE: " + {e}))
 
     meta.create_all(engine)
 

@@ -30,7 +30,7 @@ def parse_date(date: str) -> str:
     try:
         date_parsed = parse(date)
 
-    except TypeError as e:
+    except TypeError:
         #  Quick Fix. Needs a default date. Rarely occurs mostly on rental co parcels
         date_parsed = parse("1901-01-01")
 
@@ -73,7 +73,7 @@ def get_parcel_apns() -> object:
             f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
         )
         with engine.connect() as conn, conn.begin():
-            results = conn.execute(text(f"SELECT APN FROM hoa_insights.parcels;"))
+            results = conn.execute(text("SELECT APN FROM hoa_insights.parcels;"))
             APNs = results.all()
             APNs = [x[0] for x in APNs]
 

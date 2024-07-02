@@ -169,7 +169,7 @@ def tables():
             exc.OperationalError,
             exc.ProgrammingError,
         ) as e:
-            print(str(f"COMMUNITIES CREATE: " + {e}))
+            print(str(f"COMMUNITIES CREATE ERROR:  {e}"))
 
     if not owners_tbl:
         owners = Table(
