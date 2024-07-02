@@ -23,15 +23,21 @@ POSSIBLE OTHER APIS:
         c. Landscape
         d. Collections
 
-Provides insights on:
+--- 
+
+### Provides insights on:
 
 - Community Rentals
     - Property Contact Information
     - Property Owner Information
     - Property Mapped Location
-
 - Community Sales
+    - Community Average Sale Price
+    - Community Count of Sales 
+
 - Legislation information on relevant HOA bills
+
+---
 
 Assessor API Documentation: https://mcassessor.maricopa.gov/file/home/MC-Assessor-API-Documentation.pdf
 
@@ -39,11 +45,15 @@ Legiscan API Information: https://legiscan.com/legiscan
 
 PDF report functionality will need the pdfkit Python module and wkhtmltopdf to render. https://wkhtmltopdf.org/
 
+---
+
 #### utils folder contains:
 
 * Linux shell script for cron job scheduling
 * Windows batch file for Scheduled Tasks scheduling
 * A template of my 'my_secrets.py' secrets file
+
+---
 
 #### PRE_LAUNCH TODO's
 
