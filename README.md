@@ -4,20 +4,24 @@
 
 Provides rental parcel information for a Home Owners Association (HOA) community by accessing public data and presenting it in a timely, community member friendly, and accessible manner.
 
-### See It 
+### See It: 
 [Rental Map of area](https://hoa.tascs.net/areaMap.php)
 
-Currently, the county assessor's office is the only entity providing a free API that I could find. 
+[Relevant HOA Legislation](https://hoa.tascs.test/relevant_bills.php)
+
+Currently, the county assessor's office and Legiscan are the only entities providing a free API that I could find. 
     
 POSSIBLE OTHER APIS:
 
-    1 - Recorder's office would be a benefit.
+    1 - County Recorder's Office
 
-    2 - Criminalality - crimometer/Google (7 day demo, pricing?), Crime Dats free
+    2 - Crime Stats
 
-    3 - Community Vendors - Legal, Landscape, Collections
-
-    4 - legal - https://legiscan.com/legiscan
+    3 - Community Vendors 
+        a. Management Company
+        b. Legal
+        c. Landscape
+        d. Collections
 
 Provides insights on:
 
@@ -27,11 +31,22 @@ Provides insights on:
     - Property Mapped Location
 
 - Community Sales
+- Legislation information on relevant HOA bills
 
-API Documentation: https://mcassessor.maricopa.gov/file/home/MC-Assessor-API-Documentation.pdf
+Assessor API Documentation: https://mcassessor.maricopa.gov/file/home/MC-Assessor-API-Documentation.pdf
+
+Legiscan API Information: https://legiscan.com/legiscan
 
 PDF report functionality will need the pdfkit Python module and wkhtmltopdf to render. https://wkhtmltopdf.org/
 
-/utils folder contains scheduling options based on OS.
+#### utils folder contains:
 
+* Linux shell script for cron job scheduling
+* Windows batch file for Scheduled Tasks scheduling
+* A template of my 'my_secrets.py' secrets file
+
+#### PRE_LAUNCH TODO's
+
+* [ ] TASC 1 - CREATE 'input' dir and 'zipped_logfiles' subdir in root dir
+* [ ] TASC 2 - CREATE 'output' dir and 'unzipped_logfiles' subdir in root dir
 
