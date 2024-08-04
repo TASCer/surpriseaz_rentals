@@ -15,7 +15,7 @@ DB_USER = f"{my_secrets.debian_dbuser}"
 DB_PW = f"{my_secrets.debian_dbpass}"
 
 
-def check():
+def check() -> bool:
     """Check to see if owner and sale triggers are present
     Returns True if both created
     Returns False if either are missing
@@ -27,7 +27,7 @@ def check():
         engine = create_engine(
             f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
         )
-        meta = MetaData()
+        _meta = MetaData()
 
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
@@ -48,7 +48,6 @@ def check():
         if not owners_triggers:
             try:
                 conn.execute(text("DROP TRIGGER IF EXISTS after_sale_update"))
-                # OLD.SALE_DATE <> "1901-01-01" and OLD.SALE_PRICE <> 0
                 trig_sales = """CREATE DEFINER=`hoa_insights`@`%` TRIGGER `after_sale_update`
                                 AFTER UPDATE ON `owners`
                                 FOR EACH ROW BEGIN
@@ -85,4 +84,5 @@ def check():
 
             except exc.ProgrammingError as e:
                 logger.critical(str(e))
+
                 return False

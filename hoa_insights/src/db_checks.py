@@ -1,4 +1,3 @@
-# TODO need to add schema check and communities table check for remote site
 import datetime as dt
 import logging
 import my_secrets
@@ -34,7 +33,7 @@ SALES_HISTORY = "historical_sales"
 OWNERS_HISTORY = "historical_owners"
 
 
-def schema():
+def schema() -> bool:
     """Check to see if schema/DB_NAME is present, if not, create"""
     logger: Logger = logging.getLogger(__name__)
     try:
@@ -52,7 +51,7 @@ def schema():
     return True
 
 
-def tables():
+def tables() -> bool:
     """Check to see if all required tables are created
     If not, create them and return True
     Returns False and logs if error in creating
@@ -66,6 +65,7 @@ def tables():
 
     except (exc.SQLAlchemyError, exc.OperationalError):
         logger.critical("Tables Issue")
+
         return False
 
     communities_tbl_insp = sa.inspect(engine)
@@ -83,7 +83,7 @@ def tables():
         SALES_HISTORY, schema=f"{DB_NAME}"
     )
     historical_owners_insp = sa.inspect(engine)
-    historical_owners_tbl = historical_owners_insp.has_table(
+    historical_owners_tbl: bool = historical_owners_insp.has_table(
         OWNERS_HISTORY, schema=f"{DB_NAME}"
     )
 
@@ -91,7 +91,7 @@ def tables():
 
     if not parcels_tbl:
         try:
-            parcels = Table(
+            _parcels = Table(
                 PARCELS,
                 meta,
                 Column("APN", types.VARCHAR(11), primary_key=True),
@@ -102,6 +102,7 @@ def tables():
             )
         except (exc.SQLAlchemyError, exc.ProgrammingError, exc.OperationalError) as e:
             logger.error(str(e))
+
             return False
 
         try:
@@ -110,6 +111,7 @@ def tables():
             )
         except IOError as e:
             logger.error(e)
+
             return False
 
         with engine.connect() as conn, conn.begin():
@@ -128,6 +130,7 @@ def tables():
 
             except (IOError, FileNotFoundError) as e:
                 logger.critical(str(e))
+
                 return False
 
     if not communities_tbl:
@@ -135,7 +138,7 @@ def tables():
             f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
         )
 
-        communities = Table(
+        _communities = Table(
             COMMUNITY_TOTALS,
             meta,
             Column("COMMUNITY", types.VARCHAR(100), primary_key=True),
@@ -172,7 +175,7 @@ def tables():
             print(str(f"COMMUNITIES CREATE ERROR:  {e}"))
 
     if not owners_tbl:
-        owners = Table(
+        _owners = Table(
             OWNERS,
             meta,
             Column("APN", types.VARCHAR(11), primary_key=True),
@@ -188,7 +191,7 @@ def tables():
         logger.warning(f"Table: {OWNERS} did not exist and has been created")
 
     if not rentals_tbl:
-        rentals = Table(
+        _rentals = Table(
             RENTALS,
             meta,
             Column("APN", types.VARCHAR(11), primary_key=True),
@@ -201,7 +204,7 @@ def tables():
         logger.warning(f"Table: {RENTALS} did not exist and has been created")
 
     if not historical_sales_tbl:
-        historical_sales = Table(
+        _historical_sales = Table(
             SALES_HISTORY,
             meta,
             Column("APN", types.VARCHAR(11), primary_key=True),
@@ -212,7 +215,7 @@ def tables():
         logger.warning(f"Table: {SALES_HISTORY} did not exist and has been created")
 
     if not historical_owners_tbl:
-        historical_owners = Table(
+        _historical_owners = Table(
             OWNERS_HISTORY,
             meta,
             Column("APN", types.VARCHAR(11), primary_key=True),

@@ -34,7 +34,7 @@ def format_price(price: int) -> str:
     return "${:,}".format(price)
 
 
-def get_average_sale_price():
+def get_average_sale_price() -> None:
     """
     Creates mySQL engine to query sales data for all communities
     Creates dataframe of all sale prices and dates in all communities
@@ -98,9 +98,10 @@ def get_average_sale_price():
     )
     del ytd_community_avg_sale_price["SALE_PRICE"]
 
-    ytd_community_avg_sale_price["Avg_Price"]: str = ytd_community_avg_sale_price[
+    ytd_community_avg_sale_price["Avg_Price"] = ytd_community_avg_sale_price[
         "Avg_Price"
     ].apply(format_price)
+
     ytd_community_avg_sale_price.reset_index(inplace=True)
     ytd_community_avg_sale_price.to_csv(
         f"{my_secrets.csv_finance_path}ytd_community_avg_sale_price.csv"

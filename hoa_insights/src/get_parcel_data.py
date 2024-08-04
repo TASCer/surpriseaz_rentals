@@ -35,11 +35,8 @@ if platform.system() == "Windows":
 API_HEADER: dict[str, str] = {my_secrets.api_header_type: my_secrets.api_header_creds}
 
 
-def get_parcel_apns() -> object:
-    """Iterates and sorts community name and base info files for insight processing
-    Returns an ascending sorted list of tuples
-    :return:
-    """
+def get_parcel_apns() -> list[str]:
+    """Collects and  returns all Accessor Parcel Numbers from database for API processing"""
     try:
         engine = create_engine(
             f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
@@ -49,7 +46,7 @@ def get_parcel_apns() -> object:
                 text(f"SELECT APN FROM {DB_NAME}.{PARCEL_CONSTANTS};")
             )
             APNs = results.all()
-            APNs = [x[0] for x in APNs]
+            APNs: list[str] = [x[0] for x in APNs]
 
         return APNs
 
@@ -67,10 +64,8 @@ def process_api() -> list[object]:
     return consumed_parcel_data
 
 
-async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> object:
-    """Takes an api client, semaphore, and API url to get latest parcel data
-    Returns a dictionary object
-    """
+async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> dict:
+    """Takes an api client, semaphore, and API url to get latest parcel data"""
     try:
         async with sem, client.get(url) as resp:
             parcel_details: object = await resp.json(
@@ -98,7 +93,7 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> o
         return parcel_details
 
 
-async def async_main(APNS: list) -> object:
+async def async_main(APNS: list[str]) -> tuple[object]:
     """
     Takes in a list of APN's
     Creates ACCESSOR API connection/session and retry client
@@ -122,6 +117,6 @@ async def async_main(APNS: list) -> object:
                 asyncio.create_task(get_parcel_details(retry_client, sem, parcel_url))
             )
 
-        parcels: tuple = await asyncio.gather(*tasks, return_exceptions=False)
+        parcels: tuple[object] = await asyncio.gather(*tasks, return_exceptions=False)
 
         return parcels

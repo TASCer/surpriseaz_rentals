@@ -90,9 +90,10 @@ def get_new_insights() -> DataFrame:
         return DataFrame()
 
 
-def main():
+def main() -> None:
     latest_parcel_data = start_insights()
     update_parcel_data.update(latest_parcel_data)
+
     if not TESTING:
         have_database_remote: bool = db_checks_remote.schema()
         have_tables_remote: bool = db_checks_remote.tables()

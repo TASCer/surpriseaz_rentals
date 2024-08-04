@@ -34,7 +34,7 @@ def check():
         engine = create_engine(
             f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
         )
-        meta = MetaData()
+        _meta = MetaData()
 
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))
@@ -87,7 +87,7 @@ def check():
                 )
             )
 
-        logger.info(f"{TOP_RENTAL_TYPES} created" "")
+        logger.info(f"\t{TOP_RENTAL_TYPES} created" "")
 
     except exc.SQLAlchemyError as e:
         logger.critical(str(e))

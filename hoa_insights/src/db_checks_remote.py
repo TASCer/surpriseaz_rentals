@@ -1,4 +1,3 @@
-# TODO need to add schema check and communities table check for remote site
 import datetime as dt
 import logging
 import my_secrets
@@ -21,7 +20,7 @@ BH_DB_PW = f"{my_secrets.bluehost_dbpass}"
 COMMUNITY_TOTALS = "communities"
 
 
-def schema():
+def schema() -> bool:
     """Check to see if schema/DB_NAME is present, if not, create"""
     logger: Logger = logging.getLogger(__name__)
     try:
@@ -39,7 +38,7 @@ def schema():
     return True
 
 
-def tables():
+def tables() -> bool:
     """Check to see if all required tables are created
     If not, create them and return True
     Returns False and logs if error in creating
@@ -55,8 +54,8 @@ def tables():
         logger.critical(str(e))
         return False
 
-    communities_tbl_insp = sa.inspect(engine)
-    communities_tbl = communities_tbl_insp.has_table(
+    communities_tbl_insp: object = sa.inspect(engine)
+    communities_tbl: bool = communities_tbl_insp.has_table(
         COMMUNITY_TOTALS, schema=f"{BH_DB_NAME}"
     )
 
@@ -67,7 +66,7 @@ def tables():
             f"mysql+pymysql://{BH_DB_USER}:{BH_DB_PW}@{BH_DB_HOSTNAME}/{BH_DB_NAME}"
         )
 
-        communities = Table(
+        _communities = Table(
             COMMUNITY_TOTALS,
             meta,
             Column("COMMUNITY", types.VARCHAR(100), primary_key=True),

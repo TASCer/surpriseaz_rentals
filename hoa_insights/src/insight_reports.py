@@ -4,8 +4,8 @@ import logging
 import my_secrets
 import os
 import pdfkit as pdf
-import shutil
 import platform
+import shutil
 import styles
 
 from datetime import datetime
@@ -33,7 +33,7 @@ def format_price(price: int) -> str:
         return ""
 
 
-def parcel_changes(parcel_changes: object):
+def parcel_changes(parcel_changes: object) -> None:
     """Takes in the full path of a community change file
     Produces .html report
     Sends .html report to web server for display
