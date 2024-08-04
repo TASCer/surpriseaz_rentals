@@ -97,6 +97,7 @@ def financials(community_avg_prices) -> None:
     finance_report: str = f"{my_secrets.html_finance_path}community_ytd_sales_avg.html"
 
     finance_style.to_html(finance_report)
+
     if not platform.system() == "Windows":
         try:
             os.system(f"scp {finance_report} {my_secrets.web_server_path_linux}")
@@ -125,5 +126,6 @@ def financials(community_avg_prices) -> None:
     try:
         send_mail("COMMUNITY YTD AVG SALES", report_attachment)
         logger.info("\tCOMMUNITY YTD AVG SALES pdf emailed")
+        
     except BaseException as e:
         logger.exception(str(e))

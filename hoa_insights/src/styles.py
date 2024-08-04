@@ -1,5 +1,5 @@
 # TODO work on header format
-def get_style_changes():
+def get_style_changes() -> list[dict]:
     web_styles_changes = [
         dict(
             selector="th",
