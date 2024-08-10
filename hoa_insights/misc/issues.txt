@@ -3,6 +3,7 @@ APL_flag came back in early May, coincided with registered rentals dropping off 
 Rental Registrations dropping again 5/11-12/2023
 Redacted owners change 6/3/23? Strange data. Mailing Address and Owner Name are NA. Sale Date just month year (112017). Causes issues for owner_hist updating
 
+DEED_TYPE changed to PL? for many (+120)in the area 8/10/2024
 
 email has file path in filename (insight_reports)
 PDFs need better formatting
