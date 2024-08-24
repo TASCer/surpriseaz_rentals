@@ -12,6 +12,8 @@ from datetime import datetime
 from logging import Logger
 from mailer import send_mail
 from pandas.io.formats.style import Styler
+from utils.parsers import format_price
+
 
 now: datetime = dt.datetime.now()
 todays_date: str = now.strftime("%D").replace("/", "-")
@@ -19,18 +21,6 @@ todays_date: str = now.strftime("%D").replace("/", "-")
 logger: Logger = logging.getLogger(__name__)
 
 
-def format_price(price: int) -> str:
-    """
-    Takes in a string sales price p
-    Returns formatted price in $USD
-
-    ex: 534650.00 -> $534,650
-    """
-
-    if not price == 0:
-        return "${:,}".format(price)
-    else:
-        return ""
 
 
 def parcel_changes(parcel_changes: object) -> None:

@@ -11,6 +11,8 @@ from pandas import DataFrame
 from pandas.core.generic import NDFrame
 from sqlalchemy import create_engine, exc
 from sqlalchemy.engine import Engine
+from utils.parsers import format_price
+
 
 # MAIN SQL DB connection constants
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
@@ -24,14 +26,6 @@ todays_date: str = now.strftime("%D").replace("/", "-")
 ytd_start: str = "2024-01-01"
 ytd_end: str = "2025-01-01"
 
-
-def format_price(price: int) -> str:
-    """
-    Returns formatted price str in $USD
-    ex: 534650 -> $534,650
-    """
-    price = int(price)
-    return "${:,}".format(price)
 
 
 def get_average_sale_price() -> None:
@@ -76,6 +70,10 @@ def get_average_sale_price() -> None:
         except (IOError, FileNotFoundError) as e:
             logger.critical(str(e))
             exit()
+
+    if all_sales_ytd.empty:
+        logger.info("NO SALES YET THIS YEAR")	
+        return None
 
     all_community_sales_ytd = pd.DataFrame(all_sales_ytd)
     all_community_sales_ytd.to_csv(

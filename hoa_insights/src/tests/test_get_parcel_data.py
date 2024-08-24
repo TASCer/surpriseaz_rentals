@@ -2,11 +2,12 @@ import json
 import logging
 import my_secrets
 import os
-import re
 
 from dateutil.parser import parse
 from logging import Logger
 from sqlalchemy import create_engine, exc, text
+from utils.parsers import parse_apn, parse_date, parse_ph_nums
+
 
 # MAIN SQL DB connection constants
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
@@ -22,47 +23,6 @@ PARCEL_SALES: str = "sales"
 PARCEL_RENTALS: str = "rentals"
 
 logger: Logger = logging.getLogger(__name__)
-
-
-def parse_date(date: str) -> str:
-    """Takes a date from API result
-    Returns formatted str for mysql date field
-    """
-    try:
-        date_parsed = parse(date)
-
-    except TypeError:
-        #  Quick Fix. Needs a default date. Rarely occurs mostly on rental co parcels
-        date_parsed = parse("1901-01-01")
-
-    return date_parsed
-
-
-def parse_apn(apn: str) -> str:
-    """Takes an unformatted APN value (xxxxxxxx) from API
-    Returns a formatted xxx-xx-xxx str
-    """
-    apn: str = re.sub(r"(\d{3})(\d{2})(\d{3})", r"\1-\2-\3", apn)
-
-    return apn
-
-
-def parse_ph_nums(num: str) -> str:
-    """Takes phone number field data reponse from API
-    Returns a formatted (xxx) xxx-xxxx number, empty fields are all 9's
-    """
-    if num == "~~~~~~~~~~":
-        num: str = "9999999999"
-        num: str = re.sub(r"(\d{3})(\d{3})(\d{4})", r"(\1) \2-\3", num)
-
-    elif num is None:
-        return num
-
-    else:
-        num: str = re.sub(r"(\d{3})(\d{3})(\d{4})", r"(\1) \2-\3", num)
-
-    return num
-
 
 def get_parcel_apns() -> object:
     """Iterates and sorts community name and base info files for insight processing
