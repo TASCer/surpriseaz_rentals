@@ -31,9 +31,8 @@ def check():
     logger: Logger = logging.getLogger(__name__)
 
     try:
-        engine = create_engine(
-            f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
-        )
+        engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}")
+
         _meta = MetaData()
 
     except exc.SQLAlchemyError as e:
@@ -94,7 +93,6 @@ def check():
         return False
 
     # WEB VIEWS FOR LOCAL WEBSITE
-
     try:
         with engine.connect() as conn, conn.begin():
             conn.execute(

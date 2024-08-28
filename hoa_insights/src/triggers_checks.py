@@ -25,8 +25,7 @@ def check() -> bool:
 
     try:
         engine = create_engine(
-            f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
-        )
+            f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}")
         _meta = MetaData()
 
     except exc.SQLAlchemyError as e:
@@ -34,11 +33,7 @@ def check() -> bool:
         return False
 
     with engine.connect() as conn, conn.begin():
-        q_owners_trigger = select(
-            text(
-                "* from INFORMATION_SCHEMA.TRIGGERS where EVENT_OBJECT_TABLE='owners';"
-            )
-        )
+        q_owners_trigger = select(text("* from INFORMATION_SCHEMA.TRIGGERS where EVENT_OBJECT_TABLE='owners';"))
         owners_triggers: object = conn.execute(q_owners_trigger)
         owners_triggers: list = [x for x in owners_triggers]
 

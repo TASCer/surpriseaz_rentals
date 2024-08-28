@@ -69,9 +69,7 @@ def web_publish():
         classed: list = [x for x in q_classed_rentals]
         classed_rentals: pd.DataFrame = pd.DataFrame(classed)
 
-        logger.info(
-            f"\tRegistered Rentals: {len(registered_rentals)} - Classed Rentals - {len(classed_rentals)}"
-        )
+        logger.info(f"\tRegistered Rentals: {len(registered_rentals)} - Classed Rentals - {len(classed_rentals)}")
 
     except exc.DBAPIError as e:
         logger.error(str(e))
@@ -79,9 +77,8 @@ def web_publish():
     # PUBLISH to BLUEHOST
     try:
         logger: Logger = logging.getLogger(__name__)
-        engine = create_engine(
-            f"mysql+pymysql://{BH_DB_USER}:{BH_DB_PW}@{BH_DB_HOSTNAME}/{BH_DB_NAME}"
-        )
+        engine = create_engine(f"mysql+pymysql://{BH_DB_USER}:{BH_DB_PW}@{BH_DB_HOSTNAME}/{BH_DB_NAME}")
+        
         with engine.connect() as conn, conn.begin():
             try:
                 registered_rentals.to_sql(
@@ -90,9 +87,7 @@ def web_publish():
                     if_exists="replace",
                     index=False,
                 )
-                logger.info(
-                    "\tTable: <all_registered_rentals> has been updated REMOTELY"
-                )
+                logger.info("\tTable: <all_registered_rentals> has been updated REMOTELY")
 
                 classed_rentals.to_sql(
                     name="all_classed_rentals",

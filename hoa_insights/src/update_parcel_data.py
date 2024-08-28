@@ -1,4 +1,3 @@
-# import datetime as dt
 import logging
 import my_secrets
 
@@ -28,9 +27,8 @@ def update(latest_data):
         logger.warning("No data found")
 
     try:
-        engine = create_engine(
-            f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
-        )
+        engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}")
+
     except (exc.OperationalError, AttributeError) as e:
         logger.error(str(e))
 
@@ -53,9 +51,8 @@ def update(latest_data):
                 logger.warning(f"No Owner Identified!! {apn}")
 
             elif parcel_details["Owner"]:
-                apn: str = parse_apn(
-                    parcel_details["TreasurersTransitionUrl"].split("=")[1]
-                )
+                apn: str = parse_apn(parcel_details["TreasurersTransitionUrl"].split("=")[1])
+                
                 deed_date: str = parse_date(parcel_details["Owner"]["DeedDate"])
                 deed_type: str = parcel_details["Owner"]["DeedType"]
 

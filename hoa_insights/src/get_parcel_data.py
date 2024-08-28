@@ -36,11 +36,10 @@ API_HEADER: dict[str, str] = {my_secrets.api_header_type: my_secrets.api_header_
 
 
 def get_parcel_apns() -> list[str]:
-    """Collects and  returns all Accessor Parcel Numbers from database for API processing"""
+    """Collects and returns all Accessor Parcel Numbers from database for API processing"""
     try:
-        engine = create_engine(
-            f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
-        )
+        engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}")
+
         with engine.connect() as conn, conn.begin():
             results = conn.execute(
                 text(f"SELECT APN FROM {DB_NAME}.{PARCEL_CONSTANTS};")
@@ -86,9 +85,7 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> d
         await asyncio.sleep(4)
 
         async with sem, client.get(url) as resp:
-            parcel_details = await resp.json(
-                encoding="UTF-8", content_type="application/json"
-            )
+            parcel_details = await resp.json(encoding="UTF-8", content_type="application/json")
 
         return parcel_details
 
@@ -100,9 +97,8 @@ async def async_main(APNS: list[str]) -> tuple[object]:
     Iterates through list of APNs creating get_parcel_details tasks
     Returns a list of dictionary objects for each APN/parcel processed
     """
-    connector: TCPConnector = TCPConnector(
-        ssl=False, limit=40, limit_per_host=40, enable_cleanup_closed=False
-    )
+    connector: TCPConnector = TCPConnector(ssl=False, limit=40, limit_per_host=40, enable_cleanup_closed=False)
+
     async with RetryClient(
         headers=API_HEADER,
         connector=connector,
@@ -113,9 +109,7 @@ async def async_main(APNS: list[str]) -> tuple[object]:
         tasks: list[Task[object]] = []
         for apn in APNS:
             parcel_url: str = f"https://mcassessor.maricopa.gov/parcel/{apn}"
-            tasks.append(
-                asyncio.create_task(get_parcel_details(retry_client, sem, parcel_url))
-            )
+            tasks.append(asyncio.create_task(get_parcel_details(retry_client, sem, parcel_url)))
 
         parcels: tuple[object] = await asyncio.gather(*tasks, return_exceptions=False)
 
