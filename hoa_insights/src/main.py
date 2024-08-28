@@ -28,9 +28,8 @@ root_logger.setLevel(logging.INFO)
 fh = logging.FileHandler(f"../log{todays_date}.log")
 fh.setLevel(logging.DEBUG)
 
-formatter: Formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s"
-)
+formatter: Formatter = logging.Formatter("%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s")
+
 fh.setFormatter(formatter)
 
 root_logger.addHandler(fh)
@@ -68,19 +67,16 @@ def get_new_insights() -> DataFrame:
         ytd_sales.get_average_sale_price()
 
     if owner_update_count >= 1 or sale_update_count >= 1:
-        logger.info(
-            f"\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}"
-        )
+        logger.info(f"\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}")
+
         owner_changes = DataFrame(
             owner_updates,
-            columns=["APN", "COMMUNITY", "OWNER", "DEED_DATE", "DEED_TYPE"],
-        ).set_index(["APN"])
+            columns=["APN", "COMMUNITY", "OWNER", "DEED_DATE", "DEED_TYPE"]).set_index(["APN"])
         sale_changes = DataFrame(
-            sale_updates, columns=["APN", "COMMUNITY", "SALE_DATE", "SALE_PRICE"]
-        ).set_index("APN")
-        all_changes: DataFrame = owner_changes.merge(
-            sale_changes, how="outer", on=["APN"], sort=True, suffixes=("", "_y")
-        )
+            sale_updates, 
+            columns=["APN", "COMMUNITY", "SALE_DATE", "SALE_PRICE"]).set_index("APN")
+        
+        all_changes: DataFrame = owner_changes.merge(sale_changes, how="outer", on=["APN"], sort=True, suffixes=("", "_y"))
         all_changes.drop(all_changes.filter(regex="_y$").columns, axis=1, inplace=True)
         all_changes.to_csv(f"{my_secrets.csv_changes_path}{todays_date}.csv")
 
@@ -122,14 +118,11 @@ if __name__ == "__main__":
     have_views: bool = views_checks.check()
 
     if have_database and have_triggers and have_tables and have_views:
-        logger.info(
-            f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }"
-        )
+        logger.info(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
 
         main()
 
     else:
-        logger.error(
-            f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }"
-        )
+        logger.error(f"RDMS: {have_database} | TRIGGERS: {have_triggers} | TABLES: {have_tables} | VIEWS: {have_views }")
+
         exit()
