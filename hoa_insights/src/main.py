@@ -1,4 +1,3 @@
-import datetime as dt
 import db_checks
 import db_checks_remote
 import get_parcel_changes
@@ -12,20 +11,18 @@ import triggers_checks
 import update_parcel_data
 import views_checks
 
-from datetime import date
 from financials import ytd_sales
 from logging import Logger, Formatter
 from pandas import DataFrame
 from tests import test_get_parcel_data
 from tests import test_update_parcel_data
+from utils.date_today import log_date
 
-now: date = dt.date.today()
-todays_date: str = now.strftime("%D").replace("/", "-")
 
 root_logger: Logger = logging.getLogger()
 root_logger.setLevel(logging.INFO)
 
-fh = logging.FileHandler(f"../log{todays_date}.log")
+fh = logging.FileHandler(f"../log{log_date()}.log")
 fh.setLevel(logging.DEBUG)
 
 formatter: Formatter = logging.Formatter("%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s")
@@ -78,7 +75,7 @@ def get_new_insights() -> DataFrame:
         
         all_changes: DataFrame = owner_changes.merge(sale_changes, how="outer", on=["APN"], sort=True, suffixes=("", "_y"))
         all_changes.drop(all_changes.filter(regex="_y$").columns, axis=1, inplace=True)
-        all_changes.to_csv(f"{my_secrets.csv_changes_path}{todays_date}.csv")
+        all_changes.to_csv(f"{my_secrets.csv_changes_path}{log_date()}.csv")
 
         return all_changes
 

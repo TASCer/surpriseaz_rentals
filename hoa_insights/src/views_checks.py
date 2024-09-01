@@ -1,12 +1,8 @@
-import datetime as dt
 import logging
 import my_secrets
 
 from logging import Logger
 from sqlalchemy import create_engine, exc, text, MetaData
-
-now = dt.datetime.now()
-todays_date = now.strftime("%D").replace("/", "-")
 
 # SQL DB connection constants
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"

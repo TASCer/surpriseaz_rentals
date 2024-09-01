@@ -1,6 +1,5 @@
 import aiohttp
 import asyncio
-import datetime as dt
 import json
 import logging
 import my_secrets
@@ -9,12 +8,9 @@ import platform
 from aiohttp import TCPConnector
 from aiohttp_retry import RetryClient, ExponentialRetry
 from asyncio import Semaphore, Task
-from datetime import datetime
 from logging import Logger
 from sqlalchemy import create_engine, exc, text
 
-now: datetime = dt.datetime.now()
-todays_date: str = now.strftime("%D").replace("/", "-")
 logger: Logger = logging.getLogger(__name__)
 
 # SQL DB connection constants

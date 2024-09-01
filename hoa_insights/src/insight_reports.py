@@ -1,5 +1,3 @@
-# TODO ADD SECURE EMAIL & ADD MULTI-attachments
-import datetime as dt
 import logging
 import my_secrets
 import os
@@ -8,14 +6,11 @@ import platform
 import shutil
 import styles
 
-from datetime import datetime
 from logging import Logger
 from mailer import send_mail
 from pandas.io.formats.style import Styler
 from utils.parsers import format_price
-
-now: datetime = dt.datetime.now()
-todays_date: str = now.strftime("%D").replace("/", "-")
+from utils.date_today import log_date
 
 logger: Logger = logging.getLogger(__name__)
 
@@ -30,7 +25,7 @@ def parcel_changes(parcel_changes: object) -> None:
 
     parcel_changes = parcel_changes.reset_index()
 
-    parcel_changes_caption: str = (f"HISTORICAL COMMUNITY PARCEL INSIGHTS  <br> As Of: {todays_date}")
+    parcel_changes_caption: str = (f"HISTORICAL COMMUNITY PARCEL INSIGHTS  <br> As Of: {log_date()}")
 
     parcel_changes_style: Styler = (
         parcel_changes.style.set_table_styles(styles.get_style_changes())
@@ -66,7 +61,7 @@ def financials(community_avg_prices) -> None:
     Emails reports to users
     """
 
-    finance_caption: str = f"YTD AVERAGE SALES PRICE<br> PROCESSED: {todays_date}"
+    finance_caption: str = f"YTD AVERAGE SALES PRICE<br> PROCESSED: {log_date()}"
 
     finance_style: Styler = (
         community_avg_prices.style.set_table_styles(styles.get_style_finance())

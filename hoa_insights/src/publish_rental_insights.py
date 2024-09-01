@@ -1,14 +1,10 @@
-import datetime as dt
 import logging
 import my_secrets
 import pandas as pd
 
-from datetime import datetime
 from logging import Logger
 from sqlalchemy import create_engine, exc, text
-
-now: datetime = dt.datetime.now()
-todays_date: str = now.strftime("%D").replace("/", "-")
+from utils.date_today import sql_date
 
 # MAIN SQL DB connection constants
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
@@ -97,7 +93,7 @@ def web_publish():
                 )
                 logger.info("\tTable: <all_classed_rentals> has been updated REMOTELY")
 
-                pd.Series(now).to_sql(
+                pd.Series(sql_date()).to_sql(
                     name="last_updated",
                     con=conn,
                     if_exists="replace",

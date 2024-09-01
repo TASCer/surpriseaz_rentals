@@ -1,4 +1,3 @@
-import datetime as dt
 import logging
 import my_secrets
 import sqlalchemy as sa
@@ -6,9 +5,6 @@ import sqlalchemy as sa
 from logging import Logger
 from sqlalchemy import create_engine, exc, types, Column, Table, MetaData
 from sqlalchemy_utils import database_exists, create_database
-
-now = dt.datetime.now()
-todays_date = now.strftime("%D").replace("/", "-")
 
 # BLUEHOST SQL DB connection constants
 BH_DB_HOSTNAME = f"{my_secrets.bluehost_dbhost}"

@@ -1,13 +1,9 @@
 # https://stackoverflow.com/questions/14437293/query-to-check-if-trigger-exist-on-a-mysql-table
-import datetime as dt
 import logging
 import my_secrets
 
 from logging import Logger
 from sqlalchemy import create_engine, exc, text, MetaData, select
-
-now = dt.datetime.now()
-todays_date = now.strftime("%D").replace("/", "-")
 
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
 DB_NAME = f"{my_secrets.debian_dbname}"
