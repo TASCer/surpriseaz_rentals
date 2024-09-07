@@ -15,3 +15,8 @@ def sql_date():
     # todays_date: str = now.strftime("%D").replace("/", "-")
 
     return todays_date
+
+def sql_timestamp():
+    now: date = dt.datetime.now()
+    print(now)
+    return now

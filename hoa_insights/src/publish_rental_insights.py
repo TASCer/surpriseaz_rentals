@@ -4,7 +4,7 @@ import pandas as pd
 
 from logging import Logger
 from sqlalchemy import create_engine, exc, text
-from utils.date_today import sql_date
+from utils.date_today import sql_timestamp
 
 # MAIN SQL DB connection constants
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
@@ -93,7 +93,7 @@ def web_publish():
                 )
                 logger.info("\tTable: <all_classed_rentals> has been updated REMOTELY")
 
-                pd.Series(sql_date()).to_sql(
+                pd.Series(sql_timestamp()).to_sql(
                     name="last_updated",
                     con=conn,
                     if_exists="replace",
@@ -106,3 +106,7 @@ def web_publish():
 
     except exc.OperationalError as e:
         logger.critical(repr(e))
+
+
+if __name__ == '__main__':
+    web_publish()
