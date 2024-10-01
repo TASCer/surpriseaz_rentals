@@ -1,7 +1,7 @@
 import db_checks
 import db_checks_remote
 import get_parcel_changes
-import get_parcel_data
+import fetch_parcel_data
 import insight_reports
 import logging
 import mailer
@@ -41,7 +41,7 @@ def start_insights() -> list[object]:
     """
     if not TESTING:
         logger.info("********** HOA INSIGHT PROCESSING STARTED **********")
-        results = get_parcel_data.process_api()
+        results = fetch_parcel_data.process_api()
     else:
         logger.info("********** [TESTING] HOA INSIGHT PROCESSING STARTED **********")
         test_get_parcel_data.process_json()
