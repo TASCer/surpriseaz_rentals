@@ -9,15 +9,16 @@ from aiohttp import TCPConnector
 from aiohttp_retry import RetryClient, ExponentialRetry
 from asyncio import Semaphore, Task
 from logging import Logger
-from sqlalchemy import create_engine, exc, text
+from sqlalchemy import create_engine, exc, text, TextClause, Row
+from typing import Sequence
 
 logger: Logger = logging.getLogger(__name__)
 
 # SQL DB connection constants
-DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
-DB_NAME = f"{my_secrets.debian_dbname}"
-DB_USER = f"{my_secrets.debian_dbuser}"
-DB_PW = f"{my_secrets.debian_dbpass}"
+DB_HOSTNAME: str = f"{my_secrets.debian_dbhost}"
+DB_NAME: str = f"{my_secrets.debian_dbname}"
+DB_USER: str = f"{my_secrets.debian_dbuser}"
+DB_PW: str = f"{my_secrets.debian_dbpass}"
 # SQL Table names
 COMMUNITY_NAMES: str = "communities"
 PARCEL_CONSTANTS: str = "parcels"
@@ -37,10 +38,8 @@ def get_parcel_apns() -> list[str]:
         engine = create_engine(f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}")
 
         with engine.connect() as conn, conn.begin():
-            results = conn.execute(
-                text(f"SELECT APN FROM {DB_NAME}.{PARCEL_CONSTANTS};")
-            )
-            APNs = results.all()
+            results: TextClause = conn.execute(text(f"SELECT APN FROM {DB_NAME}.{PARCEL_CONSTANTS};"))
+            APNs: Sequence[Row] = results.all()
             APNs: list[str] = [x[0] for x in APNs]
 
         return APNs
@@ -63,9 +62,8 @@ async def get_parcel_details(client: RetryClient, sem: Semaphore, url: str) -> d
     """Takes an api client, semaphore, and API url to get latest parcel data"""
     try:
         async with sem, client.get(url) as resp:
-            parcel_details: object = await resp.json(
-                encoding="UTF-8", content_type="application/json"
-            )
+            parcel_details: object = await resp.json(encoding="UTF-8", content_type="application/json")
+
             return parcel_details
 
     except (

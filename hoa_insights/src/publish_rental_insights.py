@@ -3,7 +3,7 @@ import my_secrets
 import pandas as pd
 
 from logging import Logger
-from sqlalchemy import create_engine, exc, text
+from sqlalchemy import create_engine, exc, text, TextClause #, Row
 from utils.date_today import sql_timestamp
 
 # MAIN SQL DB connection constants
@@ -25,7 +25,7 @@ def web_publish():
             f"mysql+pymysql://{DB_USER}:{DB_PW}@{DB_HOSTNAME}/{DB_NAME}"
         )
         with engine.connect() as conn, conn.begin():
-            q_registered_rentals = conn.execute(
+            q_registered_rentals: TextClause = conn.execute(
                 text("""SELECT 
                 r.APN,
                 p.COMMUNITY,
@@ -42,7 +42,7 @@ def web_publish():
                 INNER JOIN rentals r ON r.APN = p.APN;""")
             )
 
-            q_classed_rentals = conn.execute(
+            q_classed_rentals: TextClause = conn.execute(
                 text("""SELECT
                 p.APN, 
                 p.COMMUNITY,

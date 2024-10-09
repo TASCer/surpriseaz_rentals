@@ -37,7 +37,7 @@ TESTING: bool = False
 def start_insights() -> list[object]:
     """
     If not testing, gathers parcel data via MARICOPA AZ ACCESSOR API and returns list of each parcels current data
-    If testing, gathers parcel data via JSON files and returns list of each parcels test data
+    If testing, gathers parcel data via JSON files and returns list of each parcels data
     """
     if not TESTING:
         logger.info("********** HOA INSIGHT PROCESSING STARTED **********")
@@ -66,10 +66,10 @@ def get_new_insights() -> DataFrame:
     if owner_update_count >= 1 or sale_update_count >= 1:
         logger.info(f"\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}")
 
-        owner_changes = DataFrame(
+        owner_changes: DataFrame = DataFrame(
             owner_updates,
             columns=["APN", "COMMUNITY", "OWNER", "DEED_DATE", "DEED_TYPE"]).set_index(["APN"])
-        sale_changes = DataFrame(
+        sale_changes: DataFrame = DataFrame(
             sale_updates, 
             columns=["APN", "COMMUNITY", "SALE_DATE", "SALE_PRICE"]).set_index("APN")
         
@@ -84,7 +84,7 @@ def get_new_insights() -> DataFrame:
 
 
 def main() -> None:
-    latest_parcel_data = start_insights()
+    latest_parcel_data: DataFrame = start_insights()
     update_parcel_data.update(latest_parcel_data)
 
     if not TESTING:

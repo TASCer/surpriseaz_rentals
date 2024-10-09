@@ -3,7 +3,7 @@ import my_secrets
 
 from dateutil.parser import parse
 from logging import Logger
-from sqlalchemy import create_engine, exc, text
+from sqlalchemy import create_engine, exc, text, TextClause
 from utils.parsers import parse_apn, parse_date, parse_ph_nums
 
 # MAIN SQL DB connection constants
@@ -33,7 +33,7 @@ def update(latest_data):
         logger.error(str(e))
 
     with engine.connect() as conn, conn.begin():
-        delete_rentals = f"DELETE FROM {DB_NAME}.{PARCEL_RENTALS};"
+        delete_rentals: TextClause = f"DELETE FROM {DB_NAME}.{PARCEL_RENTALS};"
         conn.execute(text(delete_rentals))
 
         for parcel_details in latest_data:
@@ -42,7 +42,7 @@ def update(latest_data):
                 owner, mail_to, deed_type = 3 * ("",)
                 is_rental: bool = parcel_details["IsRental"]
                 last_legal_class: str = parcel_details["Valuations"][0]["LegalClassificationCode"]
-                deed_date = parse("1901-01-01")
+                deed_date: str = parse("1901-01-01")
                 sale_price = 0
                 logger.warning(f"No Owner Identified!! {apn}")
 
@@ -53,10 +53,9 @@ def update(latest_data):
                 deed_type: str = parcel_details["Owner"]["DeedType"]
 
                 if not deed_type:
-                    deed_type = ""
+                    deed_type: str = ""
 
                 mail_to: str = parcel_details["Owner"]["FullMailingAddress"].replace(",", "")
-                # mail_to: str = mail_to.replace(",", "")
                 owner: str = parcel_details["Owner"]["Ownership"]
 
                 if "'" in owner:
@@ -71,7 +70,7 @@ def update(latest_data):
                     sale_price = 0
 
             try:
-                insert_qry = (
+                insert_qry: TextClause = (
                     f"INSERT INTO hoa_insights.{PARCEL_OWNERS} (APN, OWNER, MAIL_ADX, RENTAL, SALE_DATE, SALE_PRICE, DEED_DATE, DEED_TYPE, LEGAL_CODE) "
                     f"VALUES('{apn}', '{owner}', '{mail_to}', '{is_rental}', '{sale_date}', '{sale_price}','{deed_date}', '{deed_type}', '{last_legal_class}') "
                     f"ON DUPLICATE KEY UPDATE  OWNER='{owner}',MAIL_ADX='{mail_to}',RENTAL='{is_rental}', SALE_DATE='{sale_date}', SALE_PRICE='{sale_price}', DEED_DATE='{deed_date}',DEED_TYPE='{deed_type}', LEGAL_CODE='{last_legal_class}';"
@@ -85,27 +84,21 @@ def update(latest_data):
                 rental_owner_type: str = parcel_details["RentalInformation"]["OwnershipType"]
                 rental_owner_name: str = parcel_details["RentalInformation"]["OwnerName"]
                 rental_owner_address: str = parcel_details["RentalInformation"]["OwnerAddress"].replace(",", " ")
-                # rental_owner_address: str = rental_owner_address.replace(",", " ")
                 rental_owner_phone: str = parse_ph_nums(parcel_details["RentalInformation"]["OwnerPhone"])
 
                 if isinstance(rental_owner_name, str):
                     rental_owner_name: str = rental_owner_name.replace(",", " ")
                 else:
                     rental_owner_name: str = parcel_details["RentalInformation"]["OwnerName"]["Name"].replace(",", " ")
-                    # rental_owner_name: str = rental_owner_name.replace(",", " ")
 
                 if parcel_details["RentalInformation"]["AgentName"]:
                     rental_contact_name: str = parcel_details["RentalInformation"]["AgentName"].replace(",", "")
-                    # rental_contact_name: str = rental_contact_name.replace(",", "")
                     rental_contact_address: str = parcel_details["RentalInformation"]["AgentAddress"].replace(",", "")
-                    # rental_contact_address: str = rental_contact_address.replace(",", "")
                     rental_contact_phone: str = parse_ph_nums(parcel_details["RentalInformation"]["AgentPhone"])
 
                 elif parcel_details["RentalInformation"]["BusinessContactName"]:
                     rental_contact_name: str = parcel_details["RentalInformation"]["BusinessContactName"].replace(",", "")
-                    # rental_contact_name = rental_contact_name.replace(",", "")
                     rental_contact_address: str = parcel_details["RentalInformation"]["BusinessContactAddress"].replace(",", "")
-                    # rental_contact_address: str = rental_contact_address.replace(",", "")
                     rental_contact_phone: str = parse_ph_nums(parcel_details["RentalInformation"]["BusinessContactPhone"])
                 else:
                     rental_contact_name: str = rental_owner_name
@@ -113,7 +106,7 @@ def update(latest_data):
                     rental_contact_phone: str = rental_owner_phone
 
                 try:
-                    insert_qry = f"""INSERT INTO hoa_insights.{PARCEL_RENTALS} (APN, OWNER, OWNER_TYPE, CONTACT, CONTACT_ADX, CONTACT_PH)
+                    insert_qry: TextClause = f"""INSERT INTO hoa_insights.{PARCEL_RENTALS} (APN, OWNER, OWNER_TYPE, CONTACT, CONTACT_ADX, CONTACT_PH)
 									VALUES('{apn}', '{rental_owner_name}', '{rental_owner_type}', '{rental_contact_name}', '{rental_contact_address}', '{rental_contact_phone}')
 									ON DUPLICATE KEY UPDATE OWNER='{rental_owner_name}', OWNER_TYPE='{rental_owner_type}', CONTACT='{rental_contact_name}', CONTACT_ADX='{rental_contact_address}', CONTACT_PH='{rental_contact_phone}';"""
                     conn.execute(text(insert_qry))
