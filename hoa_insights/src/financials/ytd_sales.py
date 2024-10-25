@@ -4,7 +4,6 @@ import logging
 import my_secrets
 import pandas as pd
 
-
 from datetime import datetime
 from logging import Logger
 from pandas import DataFrame
@@ -12,7 +11,6 @@ from pandas.core.generic import NDFrame
 from sqlalchemy import create_engine, exc
 from sqlalchemy.engine import Engine
 from utils.parsers import format_price
-
 
 # MAIN SQL DB connection constants
 DB_HOSTNAME = f"{my_secrets.debian_dbhost}"
@@ -25,7 +23,6 @@ todays_date: str = now.strftime("%D").replace("/", "-")
 
 ytd_start: str = "2024-01-01"
 ytd_end: str = "2025-01-01"
-
 
 
 def get_average_sale_price() -> None:

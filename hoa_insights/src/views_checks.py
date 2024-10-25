@@ -211,7 +211,4 @@ def check():
         logger.critical(str(e))
         return False
 
-    # logger.info(f"""{TOP_CLASSED_RENTAL_OWNERS} {TOP_REGISTERED_RENTAL_OWNERS} {TOP_RENTAL_TYPES}
-    #                 {CLASSED_RENTALS}-{REGISTERED_RENTALS}-{COMMUNITY_RENTAL_TYPES} created""")
-
     return True
