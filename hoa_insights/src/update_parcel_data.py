@@ -21,7 +21,7 @@ PARCEL_RENTALS: str = "rentals"
 
 
 def update(latest_data):
-    """Takes in latest API data and updates the tables"""
+    """Takes in latest API data and updates the database tables"""
     logger: Logger = logging.getLogger(__name__)
     if latest_data is None:
         logger.warning("No data found")

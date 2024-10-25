@@ -22,7 +22,7 @@ from utils.date_today import log_date
 root_logger: Logger = logging.getLogger()
 root_logger.setLevel(logging.INFO)
 
-fh = logging.FileHandler(f"../log{log_date()}.log")
+fh = logging.FileHandler(f"../{log_date()}.log")
 fh.setLevel(logging.DEBUG)
 
 formatter: Formatter = logging.Formatter("%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(message)s")
@@ -66,12 +66,8 @@ def get_new_insights() -> DataFrame:
     if owner_update_count >= 1 or sale_update_count >= 1:
         logger.info(f"\tNew Owners: {len(owner_updates)} - New Sales: {len(sale_updates)}")
 
-        owner_changes: DataFrame = DataFrame(
-            owner_updates,
-            columns=["APN", "COMMUNITY", "OWNER", "DEED_DATE", "DEED_TYPE"]).set_index(["APN"])
-        sale_changes: DataFrame = DataFrame(
-            sale_updates, 
-            columns=["APN", "COMMUNITY", "SALE_DATE", "SALE_PRICE"]).set_index("APN")
+        owner_changes: DataFrame = DataFrame(owner_updates, columns=["APN", "COMMUNITY", "OWNER", "DEED_DATE", "DEED_TYPE"]).set_index(["APN"])
+        sale_changes: DataFrame = DataFrame(sale_updates, columns=["APN", "COMMUNITY", "SALE_DATE", "SALE_PRICE"]).set_index("APN")
         
         all_changes: DataFrame = owner_changes.merge(sale_changes, how="outer", on=["APN"], sort=True, suffixes=("", "_y"))
         all_changes.drop(all_changes.filter(regex="_y$").columns, axis=1, inplace=True)

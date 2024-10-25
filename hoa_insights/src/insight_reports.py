@@ -16,9 +16,9 @@ logger: Logger = logging.getLogger(__name__)
 
 
 def parcel_changes(parcel_changes: object) -> None:
-    """Takes in the full path of a community change file
+    """Takes in latest parcel change file
     Produces .html report
-    Sends .html report to web server for display
+    Securely sends the .html report to web server
     """
     parcel_changes["SALE_PRICE"] = (parcel_changes["SALE_PRICE"].fillna(0).astype(int).apply(format_price))
     parcel_changes["SALE_DATE"] = parcel_changes["SALE_DATE"].fillna("")
