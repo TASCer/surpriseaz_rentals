@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hoa_insights"
-version = "0.1.0"
-description = "PROVIDES HOA INSIGHTS TO COMMUNITIES"
+version = "0.2.0"
+description = "PROVIDES RENTAL PARCEL INSIGHTS FOR HOA COMMUNITIES"
 authors = ["TASCer <info@tascs.net>"]
 readme = "README.md"
 
@@ -11,7 +11,7 @@ pandas = "^2.1.2"
 aiohttp = "^3.8.6"
 sqlalchemy = "^2.0.22"
 python-dateutil = "^2.8.2"
-pymysql = "^1.1.0"
+pymysql = "^1.1.1"
 sqlalchemy-utils = "^0.41.1"
 pdfkit = "^1.0.0"
 aiohttp-retry = "^2.8.3"
